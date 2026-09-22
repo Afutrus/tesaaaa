@@ -320,7 +320,7 @@
         </div>
 
 
-        <!-- JUMLAH -->
+        <!-- JUMLAH KOIN -->
 
         <div class="receipt-row">
 
@@ -330,6 +330,24 @@
 
             <div
                 id="receiptAmount"
+                class="text-lg font-black text-[#FD7100]"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <!-- NOMINAL PENCAIRAN -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Nominal Pencairan
+            </div>
+
+            <div
+                id="receiptPrice"
                 class="text-lg font-black text-[#FD7100]"
             >
                 -
@@ -404,7 +422,6 @@
                 KONFIRMASI & KIRIM
             </button>
 
-
             <button
                 onclick="closeConfirmation()"
                 class="cancel-button"
@@ -421,20 +438,17 @@
 
 <script>
 
-
 /* =====================================================
    TELEGRAM CONFIG
    =====================================================
 
-   JANGAN taruh token bot asli di frontend production.
+   Gunakan backend/serverless function untuk Telegram.
 
-   Gunakan backend/serverless function untuk mengirim
-   ke Telegram.
-
-   Contoh endpoint:
-
+   Endpoint:
    /api/send-telegram
-*/
+
+   Jangan menaruh BOT TOKEN langsung di frontend.
+===================================================== */
 
 const TELEGRAM_API_ENDPOINT =
     "/api/send-telegram";
@@ -442,7 +456,7 @@ const TELEGRAM_API_ENDPOINT =
 
 /* =====================================================
    PARAMETER DARI HALAMAN SEBELUMNYA
-   ===================================================== */
+===================================================== */
 
 const params =
     new URLSearchParams(window.location.search);
@@ -458,6 +472,10 @@ const playerNick =
 
 const amount =
     params.get("pay") || "0";
+
+
+const price =
+    params.get("price") || "0";
 
 
 const productName =
@@ -478,15 +496,15 @@ const accNum =
 
 /* =====================================================
    TAMPILKAN ID
-   ===================================================== */
+===================================================== */
 
 document.getElementById("targetId").textContent =
     playerID;
 
 
 /* =====================================================
-   FORMAT JUMLAH
-   ===================================================== */
+   FORMAT ANGKA
+===================================================== */
 
 function formatNumber(value) {
 
@@ -496,13 +514,35 @@ function formatNumber(value) {
 
 
 /* =====================================================
+   FORMAT RUPIAH
+===================================================== */
+
+function formatRupiah(value) {
+
+    return Number(value).toLocaleString("id-ID", {
+
+        style: "currency",
+
+        currency: "IDR",
+
+        minimumFractionDigits: 0,
+
+        maximumFractionDigits: 0
+
+    });
+
+}
+
+
+/* =====================================================
    COPY ID
-   ===================================================== */
+===================================================== */
 
 function copyID() {
 
     navigator.clipboard
         .writeText(playerID)
+
         .then(() => {
 
             alert(
@@ -510,6 +550,7 @@ function copyID() {
             );
 
         })
+
         .catch(() => {
 
             alert(
@@ -523,27 +564,45 @@ function copyID() {
 
 /* =====================================================
    GENERATE NOMOR RESI
-   ===================================================== */
+===================================================== */
 
 function generateReceiptNumber() {
 
     const now =
         new Date();
 
+
     const date =
         now.getFullYear().toString() +
-        String(now.getMonth() + 1).padStart(2, "0") +
-        String(now.getDate()).padStart(2, "0");
+
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0") +
+
+        String(
+            now.getDate()
+        ).padStart(2, "0");
+
 
     const time =
-        String(now.getHours()).padStart(2, "0") +
-        String(now.getMinutes()).padStart(2, "0") +
-        String(now.getSeconds()).padStart(2, "0");
+        String(
+            now.getHours()
+        ).padStart(2, "0") +
+
+        String(
+            now.getMinutes()
+        ).padStart(2, "0") +
+
+        String(
+            now.getSeconds()
+        ).padStart(2, "0");
+
 
     const random =
         Math.floor(
             1000 + Math.random() * 9000
         );
+
 
     return `NP-${date}-${time}-${random}`;
 
@@ -553,7 +612,7 @@ function generateReceiptNumber() {
 /* =====================================================
    TAHAP 1
    KLIK TENTUKAN
-   ===================================================== */
+===================================================== */
 
 function prepareConfirmation() {
 
@@ -565,10 +624,30 @@ function prepareConfirmation() {
      * Wajib upload screenshot
      */
 
-    if (fileInput.files.length === 0) {
+    if (
+        fileInput.files.length === 0
+    ) {
 
         alert(
             "Wajib upload bukti Screenshot pengiriman chip!"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Validasi data
+     */
+
+    if (
+        playerID === "-" ||
+        amount === "0"
+    ) {
+
+        alert(
+            "Data transaksi tidak lengkap. Silakan ulangi dari halaman awal."
         );
 
         return;
@@ -585,41 +664,82 @@ function prepareConfirmation() {
 
 
     /*
-     * Isi data resi
+     * Tampilkan RESI
      */
 
-    document.getElementById("receiptNumber")
-        .textContent =
+    document.getElementById(
+        "receiptNumber"
+    ).textContent =
         receipt;
 
 
-    document.getElementById("receiptID")
-        .textContent =
+    /*
+     * ID
+     */
+
+    document.getElementById(
+        "receiptID"
+    ).textContent =
         playerID;
 
 
-    document.getElementById("receiptNick")
-        .textContent =
+    /*
+     * NICKNAME
+     */
+
+    document.getElementById(
+        "receiptNick"
+    ).textContent =
         playerNick;
 
 
-    document.getElementById("receiptAmount")
-        .textContent =
+    /*
+     * JUMLAH KOIN
+     */
+
+    document.getElementById(
+        "receiptAmount"
+    ).textContent =
         `${formatNumber(amount)} Koin`;
 
 
-    document.getElementById("receiptName")
-        .textContent =
+    /*
+     * NOMINAL PENCAIRAN
+     */
+
+    document.getElementById(
+        "receiptPrice"
+    ).textContent =
+        formatRupiah(price);
+
+
+    /*
+     * ATAS NAMA
+     */
+
+    document.getElementById(
+        "receiptName"
+    ).textContent =
         accName;
 
 
-    document.getElementById("receiptBank")
-        .textContent =
+    /*
+     * BANK / E-WALLET
+     */
+
+    document.getElementById(
+        "receiptBank"
+    ).textContent =
         method;
 
 
-    document.getElementById("receiptAccount")
-        .textContent =
+    /*
+     * NOMOR REKENING
+     */
+
+    document.getElementById(
+        "receiptAccount"
+    ).textContent =
         accNum;
 
 
@@ -644,7 +764,7 @@ function prepareConfirmation() {
 
 /* =====================================================
    TUTUP KONFIRMASI
-   ===================================================== */
+===================================================== */
 
 function closeConfirmation() {
 
@@ -658,25 +778,33 @@ function closeConfirmation() {
 /* =====================================================
    TAHAP 2
    KONFIRMASI → BENAR-BENAR KIRIM
-   ===================================================== */
+===================================================== */
 
 async function confirmAndSend() {
 
     const fileInput =
         document.getElementById("uploadSS");
 
+
     const confirmButton =
-        document.getElementById("confirmSendButton");
+        document.getElementById(
+            "confirmSendButton"
+        );
+
 
     const statusMsg =
-        document.getElementById("statusMsg");
+        document.getElementById(
+            "statusMsg"
+        );
 
 
     /*
      * Pastikan file masih ada
      */
 
-    if (fileInput.files.length === 0) {
+    if (
+        fileInput.files.length === 0
+    ) {
 
         alert(
             "Bukti pengiriman tidak ditemukan. Silakan upload kembali."
@@ -696,14 +824,18 @@ async function confirmAndSend() {
     confirmButton.disabled =
         true;
 
+
     confirmButton.style.opacity =
         "0.5";
+
 
     confirmButton.textContent =
         "MENGIRIM...";
 
 
-    statusMsg.classList.add("show");
+    statusMsg.classList.add(
+        "show"
+    );
 
 
     const photo =
@@ -724,7 +856,9 @@ async function confirmAndSend() {
 
         `🎮 *Nickname:* ${playerNick}\n` +
 
-        `💰 *Jumlah Bongkar:* ${formatNumber(amount)} Koin\n\n` +
+        `💰 *Jumlah Bongkar:* ${formatNumber(amount)} Koin\n` +
+
+        `💵 *Nominal Pencairan:* ${formatRupiah(price)}\n\n` +
 
         `👤 *Atas Nama:* ${accName}\n` +
 
@@ -744,15 +878,18 @@ async function confirmAndSend() {
     const formData =
         new FormData();
 
+
     formData.append(
         "photo",
         photo
     );
 
+
     formData.append(
         "caption",
         caption
     );
+
 
     formData.append(
         "receipt",
@@ -760,13 +897,65 @@ async function confirmAndSend() {
     );
 
 
+    /*
+     * Data tambahan
+     *
+     * Bisa digunakan oleh backend
+     * jika diperlukan.
+     */
+
+    formData.append(
+        "player_id",
+        playerID
+    );
+
+
+    formData.append(
+        "player_nick",
+        playerNick
+    );
+
+
+    formData.append(
+        "amount",
+        amount
+    );
+
+
+    formData.append(
+        "price",
+        price
+    );
+
+
+    formData.append(
+        "product_name",
+        productName
+    );
+
+
+    formData.append(
+        "method",
+        method
+    );
+
+
+    formData.append(
+        "acc_name",
+        accName
+    );
+
+
+    formData.append(
+        "acc_num",
+        accNum
+    );
+
+
     try {
 
         /*
          * Kirim ke backend
-         *
-         * Backend yang kemudian meneruskan
-         * photo + caption ke Telegram.
          */
 
         const response =
@@ -803,8 +992,7 @@ async function confirmAndSend() {
 
 
         /*
-         * Redirect setelah benar-benar
-         * berhasil dikirim.
+         * Redirect
          */
 
         window.location.href =
@@ -813,7 +1001,10 @@ async function confirmAndSend() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "SEND ERROR:",
+            error
+        );
 
 
         alert(
@@ -821,18 +1012,26 @@ async function confirmAndSend() {
         );
 
 
+        /*
+         * Aktifkan kembali tombol
+         */
+
         confirmButton.disabled =
             false;
 
+
         confirmButton.style.opacity =
             "1";
+
 
         confirmButton.textContent =
             "KONFIRMASI & KIRIM";
 
     } finally {
 
-        statusMsg.classList.remove("show");
+        statusMsg.classList.remove(
+            "show"
+        );
 
     }
 
@@ -841,7 +1040,7 @@ async function confirmAndSend() {
 
 /* =====================================================
    KLIK DI LUAR MODAL
-   ===================================================== */
+===================================================== */
 
 document
     .getElementById("confirmModal")
@@ -849,7 +1048,9 @@ document
         "click",
         function(event) {
 
-            if (event.target === this) {
+            if (
+                event.target === this
+            ) {
 
                 closeConfirmation();
 
