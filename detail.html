@@ -1,265 +1,864 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Bongkar Pesanan - Neo Party</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+
+            width: 100%;
+            min-height: 100%;
+        }
+
+
         body {
             background-color: #ffffcc;
             font-family: Arial, sans-serif;
-            margin: 0;
         }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
         .main-container {
-            background-image: url('/header-image.png');
+
+            background-image:
+                url('/header-image.png');
+
             background-size: cover;
+
             background-position: center;
+
+            background-repeat: no-repeat;
+
             min-height: 100vh;
+            min-height: 100dvh;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
+
+            padding: 24px 16px;
         }
 
+
+        /* =========================================
+           GLASS CARD
+        ========================================= */
+
         .glass-popup {
-            background: rgba(255, 255, 255, 0.45);
+
+            width: 100%;
+            max-width: 500px;
+
+            background:
+                rgba(255, 255, 255, 0.45);
+
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
 
-            border: 2px solid rgba(51, 204, 255, 0.5);
+            border:
+                2px solid
+                rgba(51, 204, 255, 0.5);
 
             box-shadow:
-                0 8px 32px 0 rgba(31, 38, 135, 0.2);
+                0 8px 32px
+                rgba(31, 38, 135, 0.2);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
         }
 
-        .receipt-row {
-            background: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(51, 204, 255, 0.4);
-            border-radius: 14px;
-            padding: 12px 14px;
-            margin-bottom: 10px;
+
+        /* =========================================
+           INSTRUCTION ABOVE LOGO
+        ========================================= */
+
+        .send-instruction {
+
+            width: 100%;
+
+            color: #dc2626;
+
+            font-size: 19px;
+
+            line-height: 1.35;
+
+            font-weight: 900;
+
+            text-transform: uppercase;
+
+            font-style: italic;
+
+            margin: 0 0 18px;
+
+            text-align: center;
         }
+
+
+        /* =========================================
+           LOGO / IMAGE
+        ========================================= */
+
+        .neo-logo-frame {
+
+            width: 150px;
+            height: 150px;
+
+            margin: 0 auto 18px;
+
+            padding: 8px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border:
+                4px solid #33ccff;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255, 255, 255, 0.75);
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 24px
+                rgba(31, 38, 135, 0.15);
+        }
+
+
+        .neo-logo-frame img {
+
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            object-position: center;
+
+            border-radius: 16px;
+        }
+
+
+        /* =========================================
+           ID CONTAINER
+        ========================================= */
+
+        .player-id-box {
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            background:
+                rgba(255, 255, 255, 0.60);
+
+            border:
+                1px solid #33ccff;
+
+            border-radius: 18px;
+
+            padding: 9px 12px;
+
+            margin-bottom: 8px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(31, 38, 135, 0.08);
+        }
+
+
+        .player-id {
+
+            color: #064B7F;
+
+            font-size: 24px;
+
+            font-weight: 900;
+
+            word-break: break-all;
+        }
+
+
+        .copy-id-button {
+
+            background: #FD7100;
+
+            color: white;
+
+            border: 0;
+
+            padding: 7px 11px;
+
+            border-radius: 9px;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s,
+                background 0.2s;
+        }
+
+
+        .copy-id-button:hover {
+
+            background: #e96500;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================================
+           NICKNAME
+        ========================================= */
+
+        .nickname-display {
+
+            color: #064B7F;
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            margin: 0 0 22px;
+
+            padding: 5px 12px;
+
+            background:
+                rgba(255, 255, 255, 0.45);
+
+            border-radius: 999px;
+
+            border:
+                1px solid
+                rgba(51, 204, 255, 0.45);
+        }
+
+
+        .nickname-display span {
+
+            color: #FD7100;
+        }
+
+
+        /* =========================================
+           UPLOAD AREA
+        ========================================= */
+
+        .upload-area {
+
+            width: 100%;
+
+            margin-bottom: 20px;
+
+            text-align: left;
+        }
+
+
+        .upload-label {
+
+            display: block;
+
+            color: #064B7F;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            margin:
+                0 0 7px 8px;
+        }
+
+
+        .upload-input {
+
+            width: 100%;
+
+            padding: 8px;
+
+            font-size: 13px;
+
+            color: #4b5563;
+
+            background:
+                rgba(255, 255, 255, 0.55);
+
+            border:
+                1px solid #33ccff;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+        }
+
+
+        .upload-input::file-selector-button {
+
+            background: #33ccff;
+
+            color: white;
+
+            border: 0;
+
+            padding: 8px 13px;
+
+            margin-right: 10px;
+
+            border-radius: 9px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           ACTION AREA
+        ========================================= */
+
+        .action-area {
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        #btnSubmit {
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 190px;
+
+            max-width: 80%;
+
+            margin: 0 auto;
+
+            padding: 0;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s,
+                opacity 0.2s;
+        }
+
+
+        #btnSubmit:hover {
+
+            transform: scale(1.05);
+        }
+
+
+        #btnSubmit:active {
+
+            transform: scale(0.95);
+        }
+
+
+        #btnSubmit img {
+
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+        }
+
+
+        /* =========================================
+           AUTO TRANSFER NOTE
+        ========================================= */
+
+        .transfer-note {
+
+            max-width: 360px;
+
+            margin:
+                10px auto 0;
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            line-height: 1.45;
+
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .status {
+
+            display: none;
+
+            margin-top: 10px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            color: #064B7F;
+        }
+
+
+        .status.show {
+            display: block;
+        }
+
+
+        /* =========================================
+           MODAL
+        ========================================= */
 
         .modal-overlay {
+
             position: fixed;
+
             inset: 0;
+
             z-index: 9999;
 
             display: none;
+
             align-items: center;
             justify-content: center;
 
             padding: 20px;
 
-            background: rgba(0, 0, 0, 0.55);
+            background:
+                rgba(0, 0, 0, 0.55);
+
             backdrop-filter: blur(7px);
+
             -webkit-backdrop-filter: blur(7px);
         }
+
 
         .modal-overlay.show {
             display: flex;
         }
 
+
         .confirm-modal {
+
             width: 100%;
+
             max-width: 500px;
 
             max-height: 90vh;
+
             overflow-y: auto;
 
-            background: rgba(255, 255, 255, 0.96);
+            background:
+                rgba(255, 255, 255, 0.96);
 
-            border: 2px solid #33ccff;
+            border:
+                2px solid #33ccff;
+
             border-radius: 30px;
 
             padding: 26px;
 
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.3);
 
-            animation: popup 0.2s ease-out;
+            animation:
+                popup 0.2s ease-out;
         }
+
 
         @keyframes popup {
+
             from {
+
                 opacity: 0;
-                transform: scale(0.94);
+
+                transform:
+                    scale(0.94);
             }
+
 
             to {
+
                 opacity: 1;
-                transform: scale(1);
+
+                transform:
+                    scale(1);
             }
+
         }
 
+
+        /* =========================================
+           RECEIPT ROW
+        ========================================= */
+
+        .receipt-row {
+
+            background:
+                rgba(255, 255, 255, 0.65);
+
+            border:
+                1px solid
+                rgba(51, 204, 255, 0.4);
+
+            border-radius: 14px;
+
+            padding:
+                12px 14px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================================
+           MODAL BUTTON
+        ========================================= */
+
         .confirm-button {
+
             background: #FD7100;
+
             color: white;
 
             width: 100%;
+
             padding: 14px;
+
+            border: 0;
 
             border-radius: 16px;
 
             font-weight: 900;
 
+            cursor: pointer;
+
             transition: 0.2s;
         }
 
+
         .confirm-button:hover {
+
             background: #e96500;
+
             transform: scale(1.02);
         }
 
+
         .cancel-button {
+
             background: #e5e7eb;
+
             color: #374151;
 
             width: 100%;
+
             padding: 14px;
+
+            border: 0;
 
             border-radius: 16px;
 
             font-weight: 900;
 
+            cursor: pointer;
+
             transition: 0.2s;
         }
 
+
         .cancel-button:hover {
+
             background: #d1d5db;
         }
 
-        .status {
-            display: none;
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            .main-container {
+
+                padding:
+                    16px 12px;
+            }
+
+
+            .glass-popup {
+
+                padding:
+                    24px 20px;
+
+                border-radius:
+                    32px;
+            }
+
+
+            .send-instruction {
+
+                font-size: 17px;
+
+                margin-bottom: 15px;
+            }
+
+
+            .neo-logo-frame {
+
+                width: 135px;
+
+                height: 135px;
+
+                padding: 7px;
+
+                border-radius: 24px;
+            }
+
+
+            .player-id {
+
+                font-size: 21px;
+            }
+
+
+            #btnSubmit {
+
+                width: 180px;
+            }
+
+
+            .transfer-note {
+
+                font-size: 10px;
+            }
+
         }
 
-        .status.show {
-            display: block;
-        }
     </style>
+
 </head>
 
 
 <body>
 
-<div class="max-w-[800px] mx-auto relative">
 
-    <div class="main-container p-6">
-
-        <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
-
-            <!-- IMAGE -->
-
-            <div class="relative w-44 h-44 mb-4 border-4 border-[#33ccff] rounded-3xl overflow-hidden bg-white/50 shadow-lg">
-
-                <img
-                    src="/idbos.png"
-                    alt="ID Bos"
-                    class="w-full h-full object-contain"
-                >
-
-            </div>
+<div class="main-container">
 
 
-            <!-- TARGET ID -->
-
-            <div class="bg-white/60 border border-[#33ccff] rounded-2xl px-6 py-2 mb-6 flex items-center gap-4 shadow-sm">
-
-                <span
-                    id="targetId"
-                    class="text-2xl font-black text-[#064B7F]"
-                >
-                    -
-                </span>
-
-                <button
-                    onclick="copyID()"
-                    class="bg-[#FD7100] text-white text-xs font-bold px-3 py-1 rounded-lg hover:scale-110 transition"
-                >
-                    COPY ID
-                </button>
-
-            </div>
+    <div
+        class="glass-popup rounded-[40px] p-8"
+    >
 
 
-            <!-- TITLE -->
+        <!-- =====================================
+             INSTRUCTION
+             SEKARANG DI ATAS LOGO
+        ====================================== -->
 
-            <h2 class="text-[#064B7F] text-2xl font-black mb-6 uppercase italic leading-tight">
-                Silahkan Kirim Chip Ke ID Yang Tertera
-            </h2>
-
-
-            <!-- UPLOAD -->
-
-            <div class="w-full space-y-4 mb-6 text-left">
-
-                <div>
-
-                    <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">
-                        Bukti Pengiriman:
-                    </label>
-
-                    <input
-                        type="file"
-                        id="uploadSS"
-                        accept="image/*"
-                        class="w-full text-sm text-gray-600 bg-white/50 rounded-xl border border-[#33ccff] file:bg-[#33ccff] file:text-white file:border-0 file:py-2 file:px-4 file:mr-4 cursor-pointer"
-                    >
-
-                </div>
-
-            </div>
+        <p class="send-instruction">
+            Silahkan Kirim Chip Ke ID Yang Tertera
+        </p>
 
 
-            <!-- TENTUKAN -->
+        <!-- =====================================
+             LOGO NEO
+        ====================================== -->
+
+        <div class="neo-logo-frame">
+
+            <img
+                src="/idbos.png"
+                alt="Neo Party"
+            >
+
+        </div>
+
+
+        <!-- =====================================
+             ID PEMAIN
+        ====================================== -->
+
+        <div class="player-id-box">
+
+            <span
+                id="targetId"
+                class="player-id"
+            >
+                -
+            </span>
+
+
+            <button
+                type="button"
+                onclick="copyID()"
+                class="copy-id-button"
+            >
+                COPY ID
+            </button>
+
+        </div>
+
+
+        <!-- =====================================
+             NICKNAME
+        ====================================== -->
+
+        <div class="nickname-display">
+
+            NICKNAME=<span id="nicknameText">
+                -
+            </span>
+
+        </div>
+
+
+        <!-- =====================================
+             UPLOAD
+        ====================================== -->
+
+        <div class="upload-area">
+
+            <label
+                for="uploadSS"
+                class="upload-label"
+            >
+                Bukti Pengiriman:
+            </label>
+
+
+            <input
+                type="file"
+                id="uploadSS"
+                accept="image/*"
+                class="upload-input"
+            >
+
+        </div>
+
+
+        <!-- =====================================
+             TENTUKAN
+        ====================================== -->
+
+        <div class="action-area">
 
             <button
                 id="btnSubmit"
+                type="button"
                 onclick="prepareConfirmation()"
-                class="w-48 hover:scale-105 active:scale-95 transition-all"
             >
 
                 <img
                     src="/ok.png"
                     alt="Tentukan"
-                    class="w-full"
                 >
 
             </button>
 
 
+            <!-- PESAN DI BAWAH TENTUKAN -->
+
+            <p class="transfer-note">
+                Uang Otomatis Di Transfer Setelah Anda Lakukan Pengiriman Koin
+            </p>
+
+
             <p
                 id="statusMsg"
-                class="status mt-4 text-xs font-bold text-[#064B7F]"
+                class="status"
             >
                 Mengirim laporan...
             </p>
 
         </div>
 
+
     </div>
 
 </div>
 
 
-<!-- ================================================= -->
-<!-- KONFIRMASI / RESI -->
-<!-- ================================================= -->
+<!-- =================================================
+     KONFIRMASI / RESI
+================================================= -->
 
 <div
     id="confirmModal"
     class="modal-overlay"
 >
 
+
     <div class="confirm-modal">
+
 
         <h2 class="text-[#064B7F] text-2xl font-black text-center uppercase italic mb-2">
             Konfirmasi Pencairan
         </h2>
+
 
         <p class="text-[#13AAB3] text-sm font-bold text-center mb-6">
             Periksa kembali data pencairan Anda
@@ -273,6 +872,7 @@
             <div class="text-xs text-gray-500 font-bold">
                 NOMOR RESI
             </div>
+
 
             <div
                 id="receiptNumber"
@@ -292,6 +892,7 @@
                 ID Pemain
             </div>
 
+
             <div
                 id="receiptID"
                 class="text-lg font-black text-[#064B7F] break-all"
@@ -309,6 +910,7 @@
             <div class="text-xs font-bold text-gray-500">
                 Nickname / Nama
             </div>
+
 
             <div
                 id="receiptNick"
@@ -328,6 +930,7 @@
                 Jumlah Bongkar
             </div>
 
+
             <div
                 id="receiptAmount"
                 class="text-lg font-black text-[#FD7100]"
@@ -345,6 +948,7 @@
             <div class="text-xs font-bold text-gray-500">
                 Nominal Pencairan
             </div>
+
 
             <div
                 id="receiptPrice"
@@ -364,6 +968,7 @@
                 Atas Nama Pencairan
             </div>
 
+
             <div
                 id="receiptName"
                 class="text-lg font-black text-[#064B7F] break-all"
@@ -381,6 +986,7 @@
             <div class="text-xs font-bold text-gray-500">
                 Bank / E-Wallet
             </div>
+
 
             <div
                 id="receiptBank"
@@ -400,6 +1006,7 @@
                 Nomor Rekening / E-Wallet
             </div>
 
+
             <div
                 id="receiptAccount"
                 class="text-lg font-black text-[#064B7F] break-all"
@@ -416,13 +1023,16 @@
 
             <button
                 id="confirmSendButton"
+                type="button"
                 onclick="confirmAndSend()"
                 class="confirm-button"
             >
                 KONFIRMASI & KIRIM
             </button>
 
+
             <button
+                type="button"
                 onclick="closeConfirmation()"
                 class="cancel-button"
             >
@@ -431,6 +1041,7 @@
 
         </div>
 
+
     </div>
 
 </div>
@@ -438,16 +1049,9 @@
 
 <script>
 
+
 /* =====================================================
    TELEGRAM CONFIG
-   =====================================================
-
-   Gunakan backend/serverless function untuk Telegram.
-
-   Endpoint:
-   /api/send-telegram
-
-   Jangan menaruh BOT TOKEN langsung di frontend.
 ===================================================== */
 
 const TELEGRAM_API_ENDPOINT =
@@ -455,11 +1059,13 @@ const TELEGRAM_API_ENDPOINT =
 
 
 /* =====================================================
-   PARAMETER DARI HALAMAN SEBELUMNYA
+   PARAMETER
 ===================================================== */
 
 const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+        window.location.search
+    );
 
 
 const playerID =
@@ -495,11 +1101,50 @@ const accNum =
 
 
 /* =====================================================
+   NICKNAME MANUAL
+=====================================================
+
+   Kalau ingin NICKNAME bebas kamu edit,
+   cukup ubah nilai di bawah.
+
+   Contoh:
+
+   const manualNickname = "BEBAS";
+
+   Kalau dikosongkan, otomatis memakai
+   nickname dari URL/API.
+===================================================== */
+
+const manualNickname = "";
+
+
+/* =====================================================
+   NICKNAME YANG DITAMPILKAN
+===================================================== */
+
+const displayNickname =
+    manualNickname.trim() ||
+    playerNick;
+
+
+/* =====================================================
    TAMPILKAN ID
 ===================================================== */
 
-document.getElementById("targetId").textContent =
+document
+    .getElementById("targetId")
+    .textContent =
     playerID;
+
+
+/* =====================================================
+   TAMPILKAN NICKNAME
+===================================================== */
+
+document
+    .getElementById("nicknameText")
+    .textContent =
+    displayNickname;
 
 
 /* =====================================================
@@ -508,7 +1153,8 @@ document.getElementById("targetId").textContent =
 
 function formatNumber(value) {
 
-    return Number(value).toLocaleString("id-ID");
+    return Number(value)
+        .toLocaleString("id-ID");
 
 }
 
@@ -519,17 +1165,16 @@ function formatNumber(value) {
 
 function formatRupiah(value) {
 
-    return Number(value).toLocaleString("id-ID", {
-
-        style: "currency",
-
-        currency: "IDR",
-
-        minimumFractionDigits: 0,
-
-        maximumFractionDigits: 0
-
-    });
+    return Number(value)
+        .toLocaleString(
+            "id-ID",
+            {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }
+        );
 
 }
 
@@ -600,7 +1245,8 @@ function generateReceiptNumber() {
 
     const random =
         Math.floor(
-            1000 + Math.random() * 9000
+            1000 +
+            Math.random() * 9000
         );
 
 
@@ -617,12 +1263,14 @@ function generateReceiptNumber() {
 function prepareConfirmation() {
 
     const fileInput =
-        document.getElementById("uploadSS");
+        document.getElementById(
+            "uploadSS"
+        );
 
 
-    /*
-     * Wajib upload screenshot
-     */
+    /* =====================================
+       WAJIB UPLOAD
+    ===================================== */
 
     if (
         fileInput.files.length === 0
@@ -635,11 +1283,6 @@ function prepareConfirmation() {
         return;
 
     }
-
-
-    /*
-     * Validasi data
-     */
 
     if (
         playerID === "-" ||
@@ -655,135 +1298,107 @@ function prepareConfirmation() {
     }
 
 
-    /*
-     * Generate resi
-     */
+    /* =====================================
+       GENERATE RESI
+    ===================================== */
 
     const receipt =
         generateReceiptNumber();
 
 
-    /*
-     * Tampilkan RESI
-     */
+    /* =====================================
+       TAMPILKAN RESI
+    ===================================== */
 
-    document.getElementById(
-        "receiptNumber"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptNumber"
+        )
+        .textContent =
         receipt;
 
 
-    /*
-     * ID
-     */
+    /* =====================================
+       ID
+    ===================================== */
 
-    document.getElementById(
-        "receiptID"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptID"
+        )
+        .textContent =
         playerID;
 
-
-    /*
-     * NICKNAME
-     */
-
-    document.getElementById(
-        "receiptNick"
-    ).textContent =
-        playerNick;
+    document
+        .getElementById(
+            "receiptNick"
+        )
+        .textContent =
+        displayNickname;
 
 
-    /*
-     * JUMLAH KOIN
-     */
-
-    document.getElementById(
-        "receiptAmount"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptAmount"
+        )
+        .textContent =
         `${formatNumber(amount)} Koin`;
 
 
-    /*
-     * NOMINAL PENCAIRAN
-     */
-
-    document.getElementById(
-        "receiptPrice"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptPrice"
+        )
+        .textContent =
         formatRupiah(price);
 
-
-    /*
-     * ATAS NAMA
-     */
-
-    document.getElementById(
-        "receiptName"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptName"
+        )
+        .textContent =
         accName;
 
-
-    /*
-     * BANK / E-WALLET
-     */
-
-    document.getElementById(
-        "receiptBank"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptBank"
+        )
+        .textContent =
         method;
-
-
-    /*
-     * NOMOR REKENING
-     */
-
-    document.getElementById(
-        "receiptAccount"
-    ).textContent =
+    document
+        .getElementById(
+            "receiptAccount"
+        )
+        .textContent =
         accNum;
-
-
-    /*
-     * Simpan nomor resi
-     */
-
     window.receiptNumber =
         receipt;
 
-
-    /*
-     * Buka modal
-     */
-
     document
-        .getElementById("confirmModal")
+        .getElementById(
+            "confirmModal"
+        )
         .classList.add("show");
 
 }
 
 
-/* =====================================================
-   TUTUP KONFIRMASI
-===================================================== */
-
 function closeConfirmation() {
 
     document
-        .getElementById("confirmModal")
+        .getElementById(
+            "confirmModal"
+        )
         .classList.remove("show");
 
 }
 
-
-/* =====================================================
-   TAHAP 2
-   KONFIRMASI → BENAR-BENAR KIRIM
-===================================================== */
-
 async function confirmAndSend() {
 
     const fileInput =
-        document.getElementById("uploadSS");
+        document.getElementById(
+            "uploadSS"
+        );
 
 
     const confirmButton =
@@ -798,9 +1413,7 @@ async function confirmAndSend() {
         );
 
 
-    /*
-     * Pastikan file masih ada
-     */
+
 
     if (
         fileInput.files.length === 0
@@ -815,11 +1428,6 @@ async function confirmAndSend() {
         return;
 
     }
-
-
-    /*
-     * Disable button
-     */
 
     confirmButton.disabled =
         true;
@@ -842,10 +1450,6 @@ async function confirmAndSend() {
         fileInput.files[0];
 
 
-    /*
-     * Caption Telegram
-     */
-
     const caption =
 
         `🚀 *NOTIFIKASI BONGKAR BARU* 🚀\n\n` +
@@ -854,7 +1458,7 @@ async function confirmAndSend() {
 
         `👤 *ID Pemain:* ${playerID}\n` +
 
-        `🎮 *Nickname:* ${playerNick}\n` +
+        `🎮 *Nickname:* ${displayNickname}\n` +
 
         `💰 *Jumlah Bongkar:* ${formatNumber(amount)} Koin\n` +
 
@@ -870,10 +1474,6 @@ async function confirmAndSend() {
 
         `✅ *Laporan dikonfirmasi oleh pengguna.*`;
 
-
-    /*
-     * FormData
-     */
 
     const formData =
         new FormData();
@@ -897,13 +1497,6 @@ async function confirmAndSend() {
     );
 
 
-    /*
-     * Data tambahan
-     *
-     * Bisa digunakan oleh backend
-     * jika diperlukan.
-     */
-
     formData.append(
         "player_id",
         playerID
@@ -912,7 +1505,7 @@ async function confirmAndSend() {
 
     formData.append(
         "player_nick",
-        playerNick
+        displayNickname
     );
 
 
@@ -954,10 +1547,6 @@ async function confirmAndSend() {
 
     try {
 
-        /*
-         * Kirim ke backend
-         */
-
         const response =
             await fetch(
                 TELEGRAM_API_ENDPOINT,
@@ -976,11 +1565,6 @@ async function confirmAndSend() {
 
         }
 
-
-        /*
-         * BERHASIL
-         */
-
         closeConfirmation();
 
 
@@ -990,10 +1574,6 @@ async function confirmAndSend() {
             window.receiptNumber
         );
 
-
-        /*
-         * Redirect
-         */
 
         window.location.href =
             "successv2.html";
@@ -1011,10 +1591,6 @@ async function confirmAndSend() {
             "Terjadi kesalahan saat mengirim laporan. Silakan coba lagi."
         );
 
-
-        /*
-         * Aktifkan kembali tombol
-         */
 
         confirmButton.disabled =
             false;
@@ -1037,13 +1613,10 @@ async function confirmAndSend() {
 
 }
 
-
-/* =====================================================
-   KLIK DI LUAR MODAL
-===================================================== */
-
 document
-    .getElementById("confirmModal")
+    .getElementById(
+        "confirmModal"
+    )
     .addEventListener(
         "click",
         function(event) {
@@ -1061,5 +1634,7 @@ document
 
 </script>
 
+
 </body>
+
 </html>
