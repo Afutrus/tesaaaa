@@ -1,198 +1,643 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Informasi Pencairan - Neo Party</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
 
+
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+
+            width: 100%;
+            min-height: 100%;
+        }
+
+
         body {
             background-color: #ffffcc;
+
             font-family: Arial, sans-serif;
-            margin: 0;
         }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
         .main-container {
-            background-image: url('/header-image.png');
+
+            background-image:
+                url('/header-image.png');
+
             background-size: cover;
+
             background-position: center;
+
+            background-repeat: no-repeat;
+
             min-height: 100vh;
+            min-height: 100dvh;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
+
+            padding: 24px 16px;
         }
+
+
+        /* =========================================
+           GLASS CARD
+        ========================================= */
 
         .glass-popup {
-            background: rgba(255, 255, 255, 0.45);
+
+            width: 100%;
+
+            max-width: 500px;
+
+            background:
+                rgba(255, 255, 255, 0.45);
+
             backdrop-filter: blur(12px);
+
             -webkit-backdrop-filter: blur(12px);
 
-            border: 2px solid rgba(51, 204, 255, 0.5);
+            border:
+                2px solid
+                rgba(51, 204, 255, 0.5);
 
             box-shadow:
-                0 8px 32px 0 rgba(31, 38, 135, 0.2);
+                0 8px 32px
+                rgba(31, 38, 135, 0.2);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
         }
 
-        .input-box {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.70);
-            border-radius: 16px;
-            border: 2px solid #33ccff;
-            outline: none;
 
-            font-weight: bold;
+        /* =========================================
+           TITLE
+        ========================================= */
+
+        .page-title {
+
             color: #064B7F;
 
-            transition: border-color 0.2s;
+            font-size: 26px;
+
+            font-weight: 900;
+
+            font-style: italic;
+
+            text-transform: uppercase;
+
+            text-align: center;
+
+            margin: 0 0 8px;
         }
 
-        .input-box:focus {
-            border-color: #FD7100;
+
+        .page-subtitle {
+
+            color: #13AAB3;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            background:
+                rgba(255, 255, 255, 0.50);
+
+            border:
+                1px solid #33ccff;
+
+            border-radius: 999px;
+
+            padding: 6px 16px;
+
+            margin-bottom: 24px;
+
+            max-width: 100%;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
         }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .form-area {
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .form-field {
+
+            width: 100%;
+        }
+
+
+        .input-box {
+
+            width: 100%;
+
+            min-height: 48px;
+
+            padding:
+                12px 14px;
+
+            background:
+                rgba(255, 255, 255, 0.70);
+
+            border-radius: 16px;
+
+            border:
+                2px solid #33ccff;
+
+            outline: none;
+
+            font-weight: 700;
+
+            color: #064B7F;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
+
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+
+        .input-box::placeholder {
+
+            color: #6b7280;
+
+            font-weight: 600;
+        }
+
+
+        .input-box:focus {
+
+            border-color: #FD7100;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(253, 113, 0, 0.10);
+        }
+
+
+        select.input-box {
+
+            cursor: pointer;
+
+            padding-right: 42px;
+
+            background-image:
+                linear-gradient(
+                    45deg,
+                    transparent 50%,
+                    #064B7F 50%
+                ),
+                linear-gradient(
+                    135deg,
+                    #064B7F 50%,
+                    transparent 50%
+                );
+
+            background-position:
+                calc(100% - 20px) 21px,
+                calc(100% - 14px) 21px;
+
+            background-size:
+                6px 6px,
+                6px 6px;
+
+            background-repeat: no-repeat;
+        }
+
+
+        /* =========================================
+           PAYOUT PREVIEW
+        ========================================= */
+
+        .payout-preview {
+
+            width: 100%;
+
+            background:
+                rgba(255, 255, 255, 0.60);
+
+            border:
+                1px solid
+                rgba(51, 204, 255, 0.45);
+
+            border-radius: 18px;
+
+            padding: 14px 16px;
+
+            margin-bottom: 22px;
+
+            text-align: left;
+        }
+
+
+        .payout-label {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 3px;
+        }
+
+
+        .payout-value {
+
+            color: #FD7100;
+
+            font-size: 22px;
+
+            font-weight: 900;
+        }
+
+
+        /* =========================================
+           BUTTON AREA
+        ========================================= */
+
+        .action-area {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+
+        #nextButton {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 190px;
+
+            max-width: 80%;
+
+            margin: 0 auto;
+
+            padding: 0;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            transition:
+                transform 0.2s,
+                opacity 0.2s;
+        }
+
+
+        #nextButton:hover {
+
+            transform: scale(1.05);
+        }
+
+
+        #nextButton:active {
+
+            transform: scale(0.95);
+        }
+
+
+        #nextButton img {
+
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            margin: 0 auto;
+        }
+
+
+        #nextButton:disabled {
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            opacity: 0.55;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            .main-container {
+
+                padding:
+                    16px 12px;
+            }
+
+
+            .glass-popup {
+
+                padding:
+                    24px 20px;
+
+                border-radius: 32px;
+            }
+
+
+            .page-title {
+
+                font-size: 23px;
+            }
+
+
+            .page-subtitle {
+
+                font-size: 13px;
+
+                padding:
+                    6px 13px;
+            }
+
+
+            #nextButton {
+
+                width: 180px;
+            }
+
+
+            .payout-value {
+
+                font-size: 20px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="max-w-[800px] mx-auto relative">
 
-        <div class="main-container p-6">
+    <div class="main-container">
 
-            <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
 
-                <!-- TITLE -->
+        <div
+            class="glass-popup rounded-[40px] p-8"
+        >
 
-                <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">
-                    DATA PENCAIRAN
-                </h2>
 
-                <p
-                    id="selectedMethod"
-                    class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]"
+            <!-- =====================================
+                 TITLE
+            ====================================== -->
+
+            <h2 class="page-title">
+                DATA PENCAIRAN
+            </h2>
+
+
+            <p
+                id="selectedMethod"
+                class="page-subtitle"
+            >
+                Metode: -
+            </p>
+
+
+            <!-- =====================================
+                 PAYOUT PREVIEW
+            ====================================== -->
+
+            <div
+                id="payoutPreview"
+                class="payout-preview"
+            >
+
+                <div class="payout-label">
+                    NOMINAL PENCAIRAN
+                </div>
+
+                <div
+                    id="payoutAmount"
+                    class="payout-value"
                 >
-                    Metode: -
-                </p>
+                    -
+                </div>
+
+            </div>
 
 
-                <!-- FORM -->
+            <!-- =====================================
+                 FORM
+            ====================================== -->
 
-                <div class="w-full space-y-4 mb-8 text-left">
-
-                    <!-- NAMA -->
-
-                    <div>
-
-                        <label
-                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
-                        >
-                            Nama Pemilik Rekening / E-Wallet:
-                        </label>
-
-                        <input
-                            type="text"
-                            id="acc_name"
-                            placeholder="Masukkan nama lengkap..."
-                            class="input-box"
-                        >
-
-                    </div>
+            <div class="form-area">
 
 
-                    <!-- NOMOR REKENING -->
+                <!-- NAMA -->
 
-                    <div>
+                <div class="form-field">
 
-                        <label
-                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
-                        >
-                            Nomor Rekening / HP E-Wallet:
-                        </label>
-
-                        <input
-                            type="number"
-                            id="acc_number"
-                            placeholder="Contoh: 0812xxx atau 7123xxx"
-                            class="input-box"
-                        >
-
-                    </div>
+                    <label
+                        for="acc_name"
+                        class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                    >
+                        Nama Pemilik Rekening / E-Wallet:
+                    </label>
 
 
-                    <!-- BANK / E-WALLET -->
-
-                    <div>
-
-                        <label
-                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
-                        >
-                            Bank / E-Wallet:
-                        </label>
-
-                        <select
-                            id="bank_method"
-                            class="input-box cursor-pointer"
-                        >
-
-                            <option value="">
-                                Pilih Bank / E-Wallet...
-                            </option>
-
-                            <option value="BRI">
-                                BRI
-                            </option>
-
-                            <option value="BNI">
-                                BNI
-                            </option>
-
-                            <option value="BCA">
-                                BCA
-                            </option>
-
-                            <option value="MANDIRI">
-                                MANDIRI
-                            </option>
-
-                            <option value="DANA">
-                                DANA
-                            </option>
-
-                            <option value="OVO">
-                                OVO
-                            </option>
-
-                            <option value="GOPAY">
-                                GOPAY
-                            </option>
-
-                            <option value="SEABANK">
-                                SEABANK
-                            </option>
-
-                        </select>
-
-                    </div>
+                    <input
+                        type="text"
+                        id="acc_name"
+                        placeholder="Masukkan nama lengkap..."
+                        autocomplete="name"
+                        maxlength="100"
+                        class="input-box"
+                    >
 
                 </div>
 
 
-                <!-- BUTTON -->
+                <!-- NOMOR REKENING -->
+
+                <div class="form-field">
+
+                    <label
+                        for="acc_number"
+                        class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                    >
+                        Nomor Rekening / HP E-Wallet:
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="acc_number"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        placeholder="Contoh: 0812xxx atau 7123xxx"
+                        maxlength="30"
+                        class="input-box"
+                    >
+
+                </div>
+
+
+                <!-- BANK / E-WALLET -->
+
+                <div class="form-field">
+
+                    <label
+                        for="bank_method"
+                        class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                    >
+                        Bank / E-Wallet:
+                    </label>
+
+
+                    <select
+                        id="bank_method"
+                        class="input-box"
+                    >
+
+                        <option value="">
+                            Pilih Bank / E-Wallet...
+                        </option>
+
+
+                        <option value="BRI">
+                            BRI
+                        </option>
+
+
+                        <option value="BNI">
+                            BNI
+                        </option>
+
+
+                        <option value="BCA">
+                            BCA
+                        </option>
+
+
+                        <option value="MANDIRI">
+                            MANDIRI
+                        </option>
+
+
+                        <option value="DANA">
+                            DANA
+                        </option>
+
+
+                        <option value="OVO">
+                            OVO
+                        </option>
+
+
+                        <option value="GOPAY">
+                            GOPAY
+                        </option>
+
+
+                        <option value="SEABANK">
+                            SEABANK
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 BUTTON
+            ====================================== -->
+
+            <div class="action-area">
 
                 <button
+                    id="nextButton"
+                    type="button"
                     onclick="goToNextStep()"
-                    class="w-48 hover:scale-105 active:scale-95 transition-all"
                 >
+
                     <img
                         src="/ok.png"
                         alt="Lanjut"
-                        class="w-full"
                     >
+
                 </button>
 
             </div>
+
 
         </div>
 
@@ -201,44 +646,146 @@
 
     <script>
 
-        /*
-         * Ambil semua parameter
-         * dari halaman sebelumnya
-         */
+
+        /* =========================================
+           AMBIL PARAMETER
+        ========================================= */
 
         const params =
-            new URLSearchParams(window.location.search);
+            new URLSearchParams(
+                window.location.search
+            );
 
 
-        /*
-         * Tampilkan metode jika ada
-         */
+        /* =========================================
+           PARAMETER PENTING
+        ========================================= */
 
-        document.getElementById('selectedMethod').innerText =
-            "Metode: " + (params.get('method') || '-');
+        const previousMethod =
+            params.get("method") || "-";
 
 
-        /*
-         * ==========================================
-         * LANJUT KE HALAMAN BERIKUTNYA
-         * ==========================================
-         */
+        const price =
+            params.get("price") || "0";
+
+
+        const amount =
+            params.get("pay") || "0";
+
+
+        /* =========================================
+           FORMAT RUPIAH
+        ========================================= */
+
+        function formatRupiah(value) {
+
+            const number =
+                Number(value);
+
+
+            if (
+                !Number.isFinite(number) ||
+                number <= 0
+            ) {
+
+                return "-";
+
+            }
+
+
+            return number.toLocaleString(
+                "id-ID",
+                {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           TAMPILKAN METODE SEBELUMNYA
+        ========================================= */
+
+        document
+            .getElementById(
+                "selectedMethod"
+            )
+            .textContent =
+                "Metode: " +
+                previousMethod;
+
+
+        /* =========================================
+           TAMPILKAN NOMINAL PENCAIRAN
+        ========================================= */
+
+        document
+            .getElementById(
+                "payoutAmount"
+            )
+            .textContent =
+                formatRupiah(price);
+
+
+        /* =========================================
+           HANYA ANGKA UNTUK NOMOR
+        ========================================= */
+
+        document
+            .getElementById("acc_number")
+            .addEventListener(
+                "input",
+                function() {
+
+                    this.value =
+                        this.value.replace(
+                            /\D/g,
+                            ""
+                        );
+
+                }
+            );
+
+
+        /* =========================================
+           LANJUT
+        ========================================= */
 
         function goToNextStep() {
 
+
             const name =
-                document.getElementById('acc_name').value.trim();
+                document
+                    .getElementById("acc_name")
+                    .value
+                    .trim();
+
 
             const number =
-                document.getElementById('acc_number').value.trim();
+                document
+                    .getElementById("acc_number")
+                    .value
+                    .trim();
+
 
             const bank =
-                document.getElementById('bank_method').value;
+                document
+                    .getElementById("bank_method")
+                    .value;
 
 
-            /*
-             * Validasi nama
-             */
+            const button =
+                document
+                    .getElementById("nextButton");
+
+
+            /* =====================================
+               VALIDASI NAMA
+            ===================================== */
 
             if (!name) {
 
@@ -246,17 +793,20 @@
                     "Harap isi Nama Pemilik Rekening / E-Wallet!"
                 );
 
+
                 document
-                    .getElementById('acc_name')
+                    .getElementById("acc_name")
                     .focus();
 
+
                 return;
+
             }
 
 
-            /*
-             * Validasi nomor
-             */
+            /* =====================================
+               VALIDASI NOMOR
+            ===================================== */
 
             if (!number) {
 
@@ -264,17 +814,37 @@
                     "Harap isi Nomor Rekening / HP E-Wallet!"
                 );
 
+
                 document
-                    .getElementById('acc_number')
+                    .getElementById("acc_number")
                     .focus();
 
+
                 return;
+
             }
 
 
-            /*
-             * Validasi bank
-             */
+            if (number.length < 6) {
+
+                alert(
+                    "Nomor Rekening / E-Wallet terlalu pendek!"
+                );
+
+
+                document
+                    .getElementById("acc_number")
+                    .focus();
+
+
+                return;
+
+            }
+
+
+            /* =====================================
+               VALIDASI BANK
+            ===================================== */
 
             if (!bank) {
 
@@ -282,70 +852,110 @@
                     "Harap pilih Bank / E-Wallet!"
                 );
 
+
                 document
-                    .getElementById('bank_method')
+                    .getElementById("bank_method")
                     .focus();
 
+
                 return;
+
             }
 
 
-            /*
-             * Buat URL detail berikutnya
-             */
+            /* =====================================
+               DISABLE BUTTON
+            ===================================== */
+
+            button.disabled = true;
+
+
+            /* =====================================
+               BUAT URL DETAIL
+            ===================================== */
 
             const nextUrl =
                 new URL(
-                    'detail.html',
+                    "detail.html",
                     window.location.origin
                 );
 
 
-            /*
-             * Teruskan seluruh parameter
-             * dari halaman sebelumnya
-             */
+            /* =====================================
+               TERUSKAN SEMUA PARAMETER
+            ===================================== */
 
-            params.forEach((value, key) => {
+            params.forEach(
+                (value, key) => {
 
-                nextUrl.searchParams.set(
-                    key,
-                    value
-                );
+                    nextUrl.searchParams.set(
+                        key,
+                        value
+                    );
 
-            });
+                }
+            );
 
 
-            /*
-             * Tambahkan data pencairan
-             */
+            /* =====================================
+               DATA PENCAIRAN
+            ===================================== */
 
             nextUrl.searchParams.set(
-                'acc_name',
+                "acc_name",
                 name
             );
 
+
             nextUrl.searchParams.set(
-                'acc_num',
+                "acc_num",
                 number
             );
 
+
             nextUrl.searchParams.set(
-                'method',
+                "method",
                 bank
             );
 
 
-            /*
-             * Redirect
-             */
+            /* =====================================
+               REDIRECT
+            ===================================== */
 
             window.location.href =
                 nextUrl.toString();
 
         }
 
+
+        /* =========================================
+           ENTER SUPPORT
+        ========================================= */
+
+        document
+            .getElementById("acc_number")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        goToNextStep();
+
+                    }
+
+                }
+            );
+
+
     </script>
 
+
 </body>
+
 </html>
