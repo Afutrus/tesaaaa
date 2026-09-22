@@ -8,6 +8,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- MD5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
     <style>
         body {
             background-color: #ffffcc;
@@ -36,142 +39,717 @@
             box-shadow:
                 0 8px 32px 0 rgba(31, 38, 135, 0.2);
         }
+
+        .input-box {
+            width: 100%;
+            padding: 13px;
+            background: rgba(255, 255, 255, 0.70);
+            border-radius: 16px;
+            border: 2px solid #33ccff;
+            outline: none;
+            font-weight: bold;
+            color: #064B7F;
+            transition: border-color 0.2s;
+        }
+
+        .input-box:focus {
+            border-color: #FD7100;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .confirm-box {
+            width: 100%;
+            max-width: 450px;
+
+            background: rgba(255, 255, 255, 0.94);
+            border: 2px solid #33ccff;
+            border-radius: 30px;
+
+            padding: 28px;
+
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+
+            animation: popup 0.2s ease-out;
+        }
+
+        @keyframes popup {
+            from {
+                opacity: 0;
+                transform: scale(0.94);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .info-row {
+            background: rgba(51, 204, 255, 0.08);
+            border: 1px solid rgba(51, 204, 255, 0.35);
+            border-radius: 15px;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+        }
+
+        .btn-confirm {
+            background: #FD7100;
+            color: white;
+            border-radius: 16px;
+            font-weight: 900;
+            padding: 14px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-confirm:hover {
+            transform: scale(1.02);
+            background: #ed6500;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            color: #374151;
+            border-radius: 16px;
+            font-weight: 900;
+            padding: 14px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: #d1d5db;
+        }
+
+        .loading {
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="max-w-[800px] mx-auto relative">
+<div class="max-w-[800px] mx-auto relative">
 
-        <div class="main-container p-6">
+    <div class="main-container p-6">
 
-            <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
+        <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
 
-                <!-- GAMBAR -->
-                <div class="relative w-44 h-44 mb-5 border-4 border-[#33ccff] rounded-3xl overflow-hidden bg-white/50 shadow-lg">
-                    <img
-                        src="/idbos.png"
-                        alt="ID Bos"
-                        class="w-full h-full object-contain"
-                    >
-                </div>
-
-
-                <!-- JUDUL -->
-                <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">
-                    BONGKAR KOIN
-                </h2>
-
-                <p class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]">
-                    Masukkan data bongkar
-                </p>
-
-
-                <!-- FORM -->
-                <div class="w-full space-y-4 mb-8 text-left">
-
-                    <!-- ID PEMAIN -->
-                    <div>
-                        <label
-                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
-                        >
-                            ID Pemain:
-                        </label>
-
-                        <input
-                            type="text"
-                            id="player_id"
-                            inputmode="numeric"
-                            placeholder="Masukkan ID pemain..."
-                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]"
-                        >
-                    </div>
-
-
-                    <!-- JUMLAH CHIP -->
-                    <div>
-                        <label
-                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
-                        >
-                            Jumlah Koin / Chip:
-                        </label>
-
-                        <input
-                            type="number"
-                            id="coin_amount"
-                            min="1"
-                            placeholder="Masukkan jumlah koin..."
-                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]"
-                        >
-                    </div>
-
-                </div>
-
-
-                <!-- BUTTON -->
-                <button
-                    onclick="goToDetail()"
-                    class="w-48 hover:scale-105 active:scale-95 transition-all"
+            <!-- GAMBAR -->
+            <div class="relative w-44 h-44 mb-5 border-4 border-[#33ccff] rounded-3xl overflow-hidden bg-white/50 shadow-lg">
+                <img
+                    src="/idbos.png"
+                    alt="ID Bos"
+                    class="w-full h-full object-contain"
                 >
-                    <img
-                        src="/ok.png"
-                        alt="Lanjut"
-                        class="w-full"
+            </div>
+
+
+            <!-- TITLE -->
+            <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">
+                BONGKAR KOIN
+            </h2>
+
+            <p class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]">
+                Masukkan data bongkar
+            </p>
+
+
+            <!-- FORM -->
+            <div class="w-full space-y-4 mb-8 text-left">
+
+                <!-- ID -->
+                <div>
+                    <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">
+                        ID Pemain:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="player_id"
+                        inputmode="numeric"
+                        autocomplete="off"
+                        placeholder="Masukkan ID pemain..."
+                        class="input-box"
                     >
-                </button>
+                </div>
+
+
+                <!-- JUMLAH -->
+                <div>
+                    <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">
+                        Jumlah Koin / Chip:
+                    </label>
+
+                    <select
+                        id="coin_amount"
+                        class="input-box"
+                    >
+                        <option value="">Pilih jumlah bongkar...</option>
+
+                        <option value="1000000000">
+                            1.000.000.000 Koin
+                        </option>
+
+                        <option value="2000000000">
+                            2.000.000.000 Koin
+                        </option>
+
+                        <option value="3000000000">
+                            3.000.000.000 Koin
+                        </option>
+
+                        <option value="4000000000">
+                            4.000.000.000 Koin
+                        </option>
+
+                        <option value="5000000000">
+                            5.000.000.000 Koin
+                        </option>
+
+                        <option value="6000000000">
+                            6.000.000.000 Koin
+                        </option>
+
+                        <option value="7000000000">
+                            7.000.000.000 Koin
+                        </option>
+
+                        <option value="8000000000">
+                            8.000.000.000 Koin
+                        </option>
+
+                        <option value="9000000000">
+                            9.000.000.000 Koin
+                        </option>
+
+                        <option value="10000000000">
+                            10.000.000.000 Koin
+                        </option>
+                    </select>
+                </div>
 
             </div>
+
+
+            <!-- BUTTON -->
+            <button
+                id="nextButton"
+                onclick="checkPlayer()"
+                class="w-48 hover:scale-105 active:scale-95 transition-all"
+            >
+                <img
+                    src="/ok.png"
+                    alt="Lanjut"
+                    class="w-full"
+                >
+            </button>
+
+
+            <!-- LOADING -->
+            <p
+                id="loadingText"
+                class="loading mt-4 text-sm font-bold text-[#064B7F]"
+            >
+                Sedang mengecek ID pemain...
+            </p>
 
         </div>
 
     </div>
 
-
-    <script>
-
-        function goToDetail() {
-
-            const playerID =
-                document.getElementById('player_id').value.trim();
-
-            const coinAmount =
-                document.getElementById('coin_amount').value.trim();
+</div>
 
 
-            // Validasi ID
-            if (!playerID) {
-                alert("Harap masukkan ID pemain!");
-                document.getElementById('player_id').focus();
-                return;
-            }
+<!-- ========================= -->
+<!-- CONFIRMATION MODAL -->
+<!-- ========================= -->
+
+<div
+    id="confirmModal"
+    class="modal-overlay"
+>
+
+    <div class="confirm-box">
+
+        <h2 class="text-[#064B7F] text-2xl font-black text-center uppercase italic mb-2">
+            Konfirmasi Bongkar
+        </h2>
+
+        <p class="text-[#13AAB3] text-sm font-bold text-center mb-6">
+            Pastikan data di bawah sudah benar
+        </p>
 
 
-            // Validasi jumlah
-            if (!coinAmount || Number(coinAmount) <= 0) {
-                alert("Harap masukkan jumlah koin yang ingin dibongkar!");
-                document.getElementById('coin_amount').focus();
+        <!-- ID -->
+        <div class="info-row">
+            <div class="text-xs font-bold text-gray-500">
+                ID
+            </div>
+
+            <div
+                id="confirmID"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+        </div>
+
+
+        <!-- NICKNAME -->
+        <div class="info-row">
+            <div class="text-xs font-bold text-gray-500">
+                Nickname / Nama
+            </div>
+
+            <div
+                id="confirmNick"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+        </div>
+
+
+        <!-- JUMLAH -->
+        <div class="info-row">
+            <div class="text-xs font-bold text-gray-500">
+                Jumlah Bongkar
+            </div>
+
+            <div
+                id="confirmAmount"
+                class="text-lg font-black text-[#FD7100]"
+            >
+                -
+            </div>
+        </div>
+
+
+        <!-- BUTTONS -->
+        <div class="space-y-3 mt-6">
+
+            <button
+                onclick="confirmAndContinue()"
+                class="btn-confirm"
+            >
+                KONFIRMASI & LANJUTKAN
+            </button>
+
+            <button
+                onclick="closeConfirmation()"
+                class="btn-cancel"
+            >
+                BATAL
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * ============================================
+     * CONFIG
+     * ============================================
+     */
+
+    const API_URL =
+        "https://neo-ack.theneoparty.com/agent_recharge/order/info";
+
+    const BAIT_PID = "1";
+
+    const STATIC_SIG =
+        "7d83ac6f236288c720d7f4f4109a0776";
+
+
+    /*
+     * ============================================
+     * FORMAT ANGKA
+     * ============================================
+     */
+
+    function formatNumber(number) {
+
+        return Number(number).toLocaleString("id-ID");
+
+    }
+
+
+    /*
+     * ============================================
+     * CEK ID PLAYER
+     * ============================================
+     */
+
+    async function checkPlayer() {
+
+        const playerID =
+            document.getElementById("player_id").value.trim();
+
+        const coinAmount =
+            document.getElementById("coin_amount").value;
+
+        const nextButton =
+            document.getElementById("nextButton");
+
+        const loadingText =
+            document.getElementById("loadingText");
+
+
+        /*
+         * Validasi ID
+         */
+
+        if (!playerID) {
+
+            alert("Harap masukkan ID pemain!");
+
+            document
+                .getElementById("player_id")
+                .focus();
+
+            return;
+        }
+
+
+        /*
+         * Validasi jumlah
+         */
+
+        if (!coinAmount) {
+
+            alert("Silakan pilih jumlah koin yang ingin dibongkar!");
+
+            document
+                .getElementById("coin_amount")
+                .focus();
+
+            return;
+        }
+
+
+        /*
+         * Disable button
+         */
+
+        nextButton.disabled = true;
+        nextButton.style.opacity = "0.5";
+
+        loadingText.classList.add("show");
+
+
+        try {
+
+            /*
+             * Generate:
+             *
+             * MD5(
+             *   player_id={playerID}
+             *   &product_id=1
+             *   &signature={STATIC_SIG}
+             * )
+             */
+
+            const sigRaw =
+                `player_id=${playerID}&product_id=${BAIT_PID}&signature=${STATIC_SIG}`;
+
+
+            const sig =
+                CryptoJS.MD5(sigRaw).toString();
+
+
+            /*
+             * Request API
+             */
+
+            const url =
+                `${API_URL}?player_id=${encodeURIComponent(playerID)}&product_id=${encodeURIComponent(BAIT_PID)}`;
+
+
+            const response =
+                await fetch(url, {
+
+                    method: "GET",
+
+                    headers: {
+                        "Accept": "application/json",
+                        "Signature": sig
+                    }
+
+                });
+
+
+            const data =
+                await response.json();
+
+
+            /*
+             * ================================
+             * BERHASIL
+             * ================================
+             */
+
+            if (data.En === 0 && data.Data) {
+
+                const playerData =
+                    data.Data;
+
+
+                const nickname =
+                    playerData.player_nick || "-";
+
+
+                /*
+                 * Tampilkan confirmation
+                 */
+
+                document.getElementById("confirmID")
+                    .textContent =
+                    playerData.player_id || playerID;
+
+
+                document.getElementById("confirmNick")
+                    .textContent =
+                    nickname;
+
+
+                document.getElementById("confirmAmount")
+                    .textContent =
+                    `${formatNumber(coinAmount)} Koin`;
+
+
+                /*
+                 * Simpan data sementara
+                 */
+
+                window.verifiedPlayer = {
+
+                    player_id:
+                        playerData.player_id || playerID,
+
+                    player_nick:
+                        nickname,
+
+                    amount:
+                        coinAmount
+
+                };
+
+
+                /*
+                 * Buka modal
+                 */
+
+                document
+                    .getElementById("confirmModal")
+                    .classList.add("show");
+
+
                 return;
             }
 
 
             /*
-             * Langsung menuju detailv2.html
-             *
-             * Data:
-             * id  = ID pemain
-             * pay = jumlah koin/chip
+             * ================================
+             * ID TIDAK DITEMUKAN
+             * ================================
              */
 
-            const nextUrl =
-                new URL('detailv2.html', window.location.origin);
+            if (data.En === 656 || data.En === 182) {
 
-            nextUrl.searchParams.set('id', playerID);
-            nextUrl.searchParams.set('pay', coinAmount);
+                alert("ID Pengguna tidak ditemukan!");
 
-            window.location.href = nextUrl.toString();
+            } else {
+
+                alert(
+                    "Gagal memulai pembayaran, silakan coba lagi!"
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error("CHECK ID ERROR:", error);
+
+            alert(
+                "Koneksi bermasalah saat cek ID!"
+            );
+
+        } finally {
+
+            nextButton.disabled = false;
+            nextButton.style.opacity = "1";
+
+            loadingText.classList.remove("show");
+
         }
 
-    </script>
+    }
+
+
+    /*
+     * ============================================
+     * TUTUP KONFIRMASI
+     * ============================================
+     */
+
+    function closeConfirmation() {
+
+        document
+            .getElementById("confirmModal")
+            .classList.remove("show");
+
+    }
+
+
+    /*
+     * ============================================
+     * KONFIRMASI
+     * ============================================
+     */
+
+    function confirmAndContinue() {
+
+        if (!window.verifiedPlayer) {
+
+            alert(
+                "Data pemain belum diverifikasi!"
+            );
+
+            return;
+        }
+
+
+        const player =
+            window.verifiedPlayer;
+
+
+        /*
+         * Buat URL detailv2.html
+         */
+
+        const nextUrl =
+            new URL(
+                "detailv2.html",
+                window.location.origin
+            );
+
+
+        /*
+         * Teruskan ID
+         */
+
+        nextUrl.searchParams.set(
+            "id",
+            player.player_id
+        );
+
+
+        /*
+         * Teruskan jumlah bongkar
+         */
+
+        nextUrl.searchParams.set(
+            "pay",
+            player.amount
+        );
+
+
+        /*
+         * Teruskan nickname
+         */
+
+        nextUrl.searchParams.set(
+            "player_nick",
+            player.player_nick
+        );
+
+
+        /*
+         * product name
+         */
+
+        nextUrl.searchParams.set(
+            "name",
+            `${formatNumber(player.amount)} Koin`
+        );
+
+
+        /*
+         * Redirect
+         */
+
+        window.location.href =
+            nextUrl.toString();
+
+    }
+
+
+    /*
+     * ============================================
+     * KLIK DI LUAR MODAL
+     * ============================================
+     */
+
+    document
+        .getElementById("confirmModal")
+        .addEventListener("click", function(event) {
+
+            if (event.target === this) {
+
+                closeConfirmation();
+
+            }
+
+        });
+
+
+    /*
+     * ============================================
+     * ENTER = CEK ID
+     * ============================================
+     */
+
+    document
+        .getElementById("player_id")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                checkPlayer();
+
+            }
+
+        });
+
+</script>
 
 </body>
 </html>
