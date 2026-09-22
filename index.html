@@ -12,25 +12,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             background-color: #ffffcc;
             font-family: Arial, sans-serif;
-            margin: 0;
         }
+
+        /* =========================================
+           MAIN BACKGROUND
+        ========================================= */
 
         .main-container {
             background-image: url('/header-image.png');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+
             min-height: 100vh;
+            min-height: 100dvh;
 
             display: flex;
             align-items: center;
             justify-content: center;
+
+            padding: 24px 16px;
         }
 
+        /* =========================================
+           MAIN CARD
+        ========================================= */
+
         .glass-popup {
+            width: 100%;
+            max-width: 500px;
+
             background: rgba(255, 255, 255, 0.45);
+
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
 
@@ -38,33 +66,196 @@
 
             box-shadow:
                 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        /* =========================================
+           NEO LOGO FRAME
+        ========================================= */
+
+        .neo-logo-frame {
+            width: 150px;
+            height: 150px;
+
+            margin: 0 auto 20px;
+
+            padding: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 4px solid #33ccff;
+            border-radius: 28px;
+
+            background: rgba(255, 255, 255, 0.75);
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 24px rgba(31, 38, 135, 0.15);
+        }
+
+        .neo-logo-frame img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+            object-position: center;
+
+            border-radius: 16px;
+        }
+
+        /* =========================================
+           INPUT
+        ========================================= */
 
         .input-box {
             width: 100%;
-            padding: 13px;
+
+            padding: 13px 15px;
+
             background: rgba(255, 255, 255, 0.70);
+
             border-radius: 16px;
+
             border: 2px solid #33ccff;
+
             outline: none;
+
             font-weight: bold;
             color: #064B7F;
-            transition: border-color 0.2s;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
         }
 
         .input-box:focus {
             border-color: #FD7100;
+
+            box-shadow:
+                0 0 0 3px rgba(253, 113, 0, 0.10);
         }
+
+        /* =========================================
+           FORM WRAPPER
+        ========================================= */
+
+        .form-area {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 16px;
+
+            margin-bottom: 22px;
+        }
+
+        .form-field {
+            width: 100%;
+        }
+
+        /* =========================================
+           BUTTON WRAPPER
+           INI YANG MEMASTIKAN TOMBOL TIDAK
+           BERADA DI SAMPING
+        ========================================= */
+
+        .action-area {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            margin-top: 2px;
+        }
+
+        #nextButton {
+            display: flex;
+
+            width: 190px;
+            max-width: 80%;
+
+            margin: 0 auto;
+
+            padding: 0;
+
+            border: 0;
+            background: transparent;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        #nextButton img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            margin: 0 auto;
+        }
+
+        #nextButton:disabled {
+            cursor: not-allowed;
+        }
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading {
+            display: none;
+
+            width: 100%;
+
+            text-align: center;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        /* =========================================
+           MODAL
+        ========================================= */
 
         .modal-overlay {
             position: fixed;
+
             inset: 0;
+
+            width: 100%;
+            height: 100%;
+
             background: rgba(0, 0, 0, 0.45);
+
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
             display: none;
+
             align-items: center;
             justify-content: center;
+
             padding: 20px;
+
             z-index: 9999;
         }
 
@@ -76,18 +267,26 @@
             width: 100%;
             max-width: 450px;
 
+            max-height: 90vh;
+
+            overflow-y: auto;
+
             background: rgba(255, 255, 255, 0.94);
+
             border: 2px solid #33ccff;
+
             border-radius: 30px;
 
             padding: 28px;
 
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.25);
 
             animation: popup 0.2s ease-out;
         }
 
         @keyframes popup {
+
             from {
                 opacity: 0;
                 transform: scale(0.94);
@@ -97,38 +296,74 @@
                 opacity: 1;
                 transform: scale(1);
             }
+
         }
+
+        /* =========================================
+           INFO ROW
+        ========================================= */
 
         .info-row {
             background: rgba(51, 204, 255, 0.08);
+
             border: 1px solid rgba(51, 204, 255, 0.35);
+
             border-radius: 15px;
+
             padding: 13px 15px;
+
             margin-bottom: 10px;
         }
 
+        /* =========================================
+           MODAL BUTTON
+        ========================================= */
+
         .btn-confirm {
+            display: block;
+
             background: #FD7100;
             color: white;
+
+            border: 0;
+
             border-radius: 16px;
+
             font-weight: 900;
+
             padding: 14px;
+
             width: 100%;
+
+            cursor: pointer;
+
             transition: 0.2s;
         }
 
         .btn-confirm:hover {
             transform: scale(1.02);
+
             background: #ed6500;
         }
 
         .btn-cancel {
+            display: block;
+
             background: #e5e7eb;
             color: #374151;
+
+            border: 0;
+
             border-radius: 16px;
+
             font-weight: 900;
+
             padding: 14px;
+
             width: 100%;
+
+            cursor: pointer;
+
             transition: 0.2s;
         }
 
@@ -136,132 +371,228 @@
             background: #d1d5db;
         }
 
-        .loading {
-            display: none;
-        }
+        /* =========================================
+           MOBILE
+        ========================================= */
 
-        .loading.show {
-            display: block;
+        @media (max-width: 480px) {
+
+            .main-container {
+                padding: 16px 12px;
+            }
+
+            .glass-popup {
+                padding: 24px 20px;
+                border-radius: 32px;
+            }
+
+            .neo-logo-frame {
+                width: 135px;
+                height: 135px;
+
+                padding: 9px;
+
+                border-radius: 24px;
+            }
+
+            .neo-logo-frame img {
+                border-radius: 14px;
+            }
+
+            #nextButton {
+                width: 180px;
+            }
+
+            .confirm-box {
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
+
         }
     </style>
 </head>
 
+
 <body>
 
-<div class="max-w-[800px] mx-auto relative">
+<div class="main-container">
 
-    <div class="main-container p-6">
+    <div class="glass-popup rounded-[40px] p-8">
 
-        <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
+        <!-- =====================================
+             NEO LOGO
+        ====================================== -->
 
-            <!-- GAMBAR -->
-            <div class="relative w-44 h-44 mb-5 border-4 border-[#33ccff] rounded-3xl overflow-hidden bg-white/50 shadow-lg">
-                <img
-                    src="neo.jpg"
-                    alt="ID Bos"
-                    class="w-full h-full object-contain"
+        <div class="neo-logo-frame">
+
+            <img
+                src="neo.jpg"
+                alt="Neo Party"
+            >
+
+        </div>
+
+
+        <!-- =====================================
+             TITLE
+        ====================================== -->
+
+        <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic text-center">
+            BONGKAR KOIN
+        </h2>
+
+
+        <p class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff] text-center">
+            Masukkan data bongkar
+        </p>
+
+
+        <!-- =====================================
+             FORM
+        ====================================== -->
+
+        <div class="form-area">
+
+            <!-- ID PEMAIN -->
+
+            <div class="form-field">
+
+                <label
+                    class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                    for="player_id"
                 >
+                    ID Pemain:
+                </label>
+
+                <input
+                    type="text"
+                    id="player_id"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="Masukkan ID pemain..."
+                    class="input-box"
+                >
+
             </div>
 
 
-            <!-- TITLE -->
-            <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">
-                BONGKAR KOIN
-            </h2>
+            <!-- JUMLAH KOIN -->
 
-            <p class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]">
-                Masukkan data bongkar
-            </p>
+            <div class="form-field">
 
+                <label
+                    class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                    for="coin_amount"
+                >
+                    Jumlah Koin / Chip:
+                </label>
 
-            <!-- FORM -->
-            <div class="w-full space-y-4 mb-8 text-left">
+                <select
+                    id="coin_amount"
+                    class="input-box"
+                >
 
-                <!-- ID -->
-                <div>
-                    <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">
-                        ID Pemain:
-                    </label>
+                    <option value="">
+                        Pilih jumlah bongkar...
+                    </option>
 
-                    <input
-                        type="text"
-                        id="player_id"
-                        inputmode="numeric"
-                        autocomplete="off"
-                        placeholder="Masukkan ID pemain..."
-                        class="input-box"
+                    <option
+                        value="1000000000"
+                        data-price="62000"
                     >
-                </div>
+                        1B - 62 RIBU
+                    </option>
 
-<!-- JUMLAH -->
-<div>
-    <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">
-        Jumlah Koin / Chip:
-    </label>
+                    <option
+                        value="2000000000"
+                        data-price="124000"
+                    >
+                        2B - 124 RIBU
+                    </option>
 
-    <select
-        id="coin_amount"
-        class="input-box"
-    >
-        <option value="">Pilih jumlah bongkar...</option>
+                    <option
+                        value="3000000000"
+                        data-price="186000"
+                    >
+                        3B - 186 RIBU
+                    </option>
 
-        <option value="1000000000" data-price="62000">
-            1B - 62 RIBU
-        </option>
+                    <option
+                        value="4000000000"
+                        data-price="248000"
+                    >
+                        4B - 248 RIBU
+                    </option>
 
-        <option value="2000000000" data-price="124000">
-            2B - 124 RIBU
-        </option>
+                    <option
+                        value="5000000000"
+                        data-price="310000"
+                    >
+                        5B - 310 RIBU
+                    </option>
 
-        <option value="3000000000" data-price="186000">
-            3B - 186 RIBU
-        </option>
+                    <option
+                        value="6000000000"
+                        data-price="372000"
+                    >
+                        6B - 372 RIBU
+                    </option>
 
-        <option value="4000000000" data-price="248000">
-            4B - 248 RIBU
-        </option>
+                    <option
+                        value="7000000000"
+                        data-price="434000"
+                    >
+                        7B - 434 RIBU
+                    </option>
 
-        <option value="5000000000" data-price="310000">
-            5B - 310 RIBU
-        </option>
+                    <option
+                        value="8000000000"
+                        data-price="496000"
+                    >
+                        8B - 496 RIBU
+                    </option>
 
-        <option value="6000000000" data-price="372000">
-            6B - 372 RIBU
-        </option>
+                    <option
+                        value="9000000000"
+                        data-price="558000"
+                    >
+                        9B - 558 RIBU
+                    </option>
 
-        <option value="7000000000" data-price="434000">
-            7B - 434 RIBU
-        </option>
+                    <option
+                        value="10000000000"
+                        data-price="620000"
+                    >
+                        10B - 620 RIBU
+                    </option>
 
-        <option value="8000000000" data-price="496000">
-            8B - 496 RIBU
-        </option>
+                </select>
 
-        <option value="9000000000" data-price="558000">
-            9B - 558 RIBU
-        </option>
+            </div>
 
-        <option value="10000000000" data-price="620000">
-            10B - 620 RIBU
-        </option>
+        </div>
 
-    </select>
-</div>
-            <!-- BUTTON -->
+
+        <!-- =====================================
+             BUTTON AREA
+        ====================================== -->
+
+        <div class="action-area">
+
             <button
                 id="nextButton"
+                type="button"
                 onclick="checkPlayer()"
-                class="w-48 hover:scale-105 active:scale-95 transition-all"
             >
+
                 <img
                     src="/ok.png"
-                    alt="Lanjut"
-                    class="w-full"
+                    alt="Tentukan"
                 >
+
             </button>
 
 
-            <!-- LOADING -->
             <p
                 id="loadingText"
                 class="loading mt-4 text-sm font-bold text-[#064B7F]"
@@ -276,9 +607,9 @@
 </div>
 
 
-<!-- ========================= -->
-<!-- CONFIRMATION MODAL -->
-<!-- ========================= -->
+<!-- =========================================
+     CONFIRMATION MODAL
+========================================= -->
 
 <div
     id="confirmModal"
@@ -297,7 +628,9 @@
 
 
         <!-- ID -->
+
         <div class="info-row">
+
             <div class="text-xs font-bold text-gray-500">
                 ID
             </div>
@@ -308,11 +641,14 @@
             >
                 -
             </div>
+
         </div>
 
 
         <!-- NICKNAME -->
+
         <div class="info-row">
+
             <div class="text-xs font-bold text-gray-500">
                 Nickname / Nama
             </div>
@@ -323,11 +659,14 @@
             >
                 -
             </div>
+
         </div>
 
 
         <!-- JUMLAH -->
+
         <div class="info-row">
+
             <div class="text-xs font-bold text-gray-500">
                 Jumlah Bongkar
             </div>
@@ -338,13 +677,34 @@
             >
                 -
             </div>
+
+        </div>
+
+
+        <!-- NOMINAL PENCAIRAN -->
+
+        <div class="info-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Nominal Pencairan
+            </div>
+
+            <div
+                id="confirmPrice"
+                class="text-lg font-black text-[#FD7100]"
+            >
+                -
+            </div>
+
         </div>
 
 
         <!-- BUTTONS -->
+
         <div class="space-y-3 mt-6">
 
             <button
+                type="button"
                 onclick="confirmAndContinue()"
                 class="btn-confirm"
             >
@@ -352,6 +712,7 @@
             </button>
 
             <button
+                type="button"
                 onclick="closeConfirmation()"
                 class="btn-cancel"
             >
@@ -367,375 +728,468 @@
 
 <script>
 
-    /*
-     * ============================================
-     * CONFIG
-     * ============================================
-     */
+/* =====================================================
+   CONFIG
+===================================================== */
 
-    const API_URL =
-        "https://neo-ack.theneoparty.com/agent_recharge/order/info";
+const API_URL =
+    "https://neo-ack.theneoparty.com/agent_recharge/order/info";
 
-    const BAIT_PID = "1";
+const BAIT_PID = "1";
 
-    const STATIC_SIG =
-        "7d83ac6f236288c720d7f4f4109a0776";
+const STATIC_SIG =
+    "7d83ac6f236288c720d7f4f4109a0776";
 
 
-    /*
-     * ============================================
-     * FORMAT ANGKA
-     * ============================================
-     */
+/* =====================================================
+   FORMAT ANGKA
+===================================================== */
 
-    function formatNumber(number) {
+function formatNumber(number) {
 
-        return Number(number).toLocaleString("id-ID");
+    return Number(number).toLocaleString("id-ID");
+
+}
+
+
+/* =====================================================
+   FORMAT RUPIAH
+===================================================== */
+
+function formatRupiah(number) {
+
+    return Number(number).toLocaleString(
+        "id-ID",
+        {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CEK ID PLAYER
+===================================================== */
+
+async function checkPlayer() {
+
+    const playerID =
+        document
+            .getElementById("player_id")
+            .value
+            .trim();
+
+
+    const coinSelect =
+        document.getElementById(
+            "coin_amount"
+        );
+
+
+    const coinAmount =
+        coinSelect.value;
+
+
+    const selectedOption =
+        coinSelect.options[
+            coinSelect.selectedIndex
+        ];
+
+
+    const price =
+        selectedOption?.dataset?.price || "0";
+
+
+    const productName =
+        selectedOption?.textContent
+            .trim() || "Koin";
+
+
+    const nextButton =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    const loadingText =
+        document.getElementById(
+            "loadingText"
+        );
+
+
+    /* =====================================
+       VALIDASI ID
+    ===================================== */
+
+    if (!playerID) {
+
+        alert(
+            "Harap masukkan ID pemain!"
+        );
+
+        document
+            .getElementById("player_id")
+            .focus();
+
+        return;
 
     }
 
 
-    /*
-     * ============================================
-     * CEK ID PLAYER
-     * ============================================
-     */
+    /* =====================================
+       VALIDASI JUMLAH
+    ===================================== */
 
-    async function checkPlayer() {
+    if (!coinAmount) {
 
-        const playerID =
-            document.getElementById("player_id").value.trim();
+        alert(
+            "Silakan pilih jumlah koin yang ingin dibongkar!"
+        );
 
-        const coinAmount =
-            document.getElementById("coin_amount").value;
+        coinSelect.focus();
 
-        const nextButton =
-            document.getElementById("nextButton");
+        return;
 
-        const loadingText =
-            document.getElementById("loadingText");
+    }
 
 
-        /*
-         * Validasi ID
-         */
+    /* =====================================
+       DISABLE BUTTON
+    ===================================== */
 
-        if (!playerID) {
+    nextButton.disabled = true;
 
-            alert("Harap masukkan ID pemain!");
+    nextButton.style.opacity = "0.5";
 
-            document
-                .getElementById("player_id")
-                .focus();
-
-            return;
-        }
+    loadingText.classList.add("show");
 
 
-        /*
-         * Validasi jumlah
-         */
+    try {
 
-        if (!coinAmount) {
+        /* =================================
+           GENERATE SIGNATURE
+        ================================= */
 
-            alert("Silakan pilih jumlah koin yang ingin dibongkar!");
-
-            document
-                .getElementById("coin_amount")
-                .focus();
-
-            return;
-        }
+        const sigRaw =
+            `player_id=${playerID}&product_id=${BAIT_PID}&signature=${STATIC_SIG}`;
 
 
-        /*
-         * Disable button
-         */
-
-        nextButton.disabled = true;
-        nextButton.style.opacity = "0.5";
-
-        loadingText.classList.add("show");
+        const sig =
+            CryptoJS
+                .MD5(sigRaw)
+                .toString();
 
 
-        try {
+        /* =================================
+           REQUEST API
+        ================================= */
 
-            /*
-             * Generate:
-             *
-             * MD5(
-             *   player_id={playerID}
-             *   &product_id=1
-             *   &signature={STATIC_SIG}
-             * )
-             */
-
-            const sigRaw =
-                `player_id=${playerID}&product_id=${BAIT_PID}&signature=${STATIC_SIG}`;
+        const url =
+            `${API_URL}?player_id=${encodeURIComponent(playerID)}&product_id=${encodeURIComponent(BAIT_PID)}`;
 
 
-            const sig =
-                CryptoJS.MD5(sigRaw).toString();
-
-
-            /*
-             * Request API
-             */
-
-            const url =
-                `${API_URL}?player_id=${encodeURIComponent(playerID)}&product_id=${encodeURIComponent(BAIT_PID)}`;
-
-
-            const response =
-                await fetch(url, {
-
+        const response =
+            await fetch(
+                url,
+                {
                     method: "GET",
 
                     headers: {
                         "Accept": "application/json",
                         "Signature": sig
                     }
-
-                });
-
-
-            const data =
-                await response.json();
-
-
-            /*
-             * ================================
-             * BERHASIL
-             * ================================
-             */
-
-            if (data.En === 0 && data.Data) {
-
-                const playerData =
-                    data.Data;
-
-
-                const nickname =
-                    playerData.player_nick || "-";
-
-
-                /*
-                 * Tampilkan confirmation
-                 */
-
-                document.getElementById("confirmID")
-                    .textContent =
-                    playerData.player_id || playerID;
-
-
-                document.getElementById("confirmNick")
-                    .textContent =
-                    nickname;
-
-
-                document.getElementById("confirmAmount")
-                    .textContent =
-                    `${formatNumber(coinAmount)} Koin`;
-
-
-                /*
-                 * Simpan data sementara
-                 */
-
-                window.verifiedPlayer = {
-
-                    player_id:
-                        playerData.player_id || playerID,
-
-                    player_nick:
-                        nickname,
-
-                    amount:
-                        coinAmount
-
-                };
-
-
-                /*
-                 * Buka modal
-                 */
-
-                document
-                    .getElementById("confirmModal")
-                    .classList.add("show");
-
-
-                return;
-            }
-
-
-            /*
-             * ================================
-             * ID TIDAK DITEMUKAN
-             * ================================
-             */
-
-            if (data.En === 656 || data.En === 182) {
-
-                alert("ID Pengguna tidak ditemukan!");
-
-            } else {
-
-                alert(
-                    "Gagal memulai pembayaran, silakan coba lagi!"
-                );
-
-            }
-
-
-        } catch (error) {
-
-            console.error("CHECK ID ERROR:", error);
-
-            alert(
-                "Koneksi bermasalah saat cek ID!"
+                }
             );
 
-        } finally {
 
-            nextButton.disabled = false;
-            nextButton.style.opacity = "1";
-
-            loadingText.classList.remove("show");
-
-        }
-
-    }
+        const data =
+            await response.json();
 
 
-    /*
-     * ============================================
-     * TUTUP KONFIRMASI
-     * ============================================
-     */
+        /* =================================
+           BERHASIL
+        ================================= */
 
-    function closeConfirmation() {
+        if (
+            data.En === 0 &&
+            data.Data
+        ) {
 
-        document
-            .getElementById("confirmModal")
-            .classList.remove("show");
-
-    }
+            const playerData =
+                data.Data;
 
 
-    /*
-     * ============================================
-     * KONFIRMASI
-     * ============================================
-     */
+            const nickname =
+                playerData.player_nick || "-";
 
-    function confirmAndContinue() {
 
-        if (!window.verifiedPlayer) {
+            const verifiedID =
+                playerData.player_id ||
+                playerID;
 
-            alert(
-                "Data pemain belum diverifikasi!"
-            );
+
+            /* =============================
+               TAMPILKAN KONFIRMASI
+            ============================= */
+
+            document
+                .getElementById("confirmID")
+                .textContent =
+                verifiedID;
+
+
+            document
+                .getElementById("confirmNick")
+                .textContent =
+                nickname;
+
+
+            document
+                .getElementById("confirmAmount")
+                .textContent =
+                `${formatNumber(coinAmount)} Koin`;
+
+
+            document
+                .getElementById("confirmPrice")
+                .textContent =
+                formatRupiah(price);
+
+
+            /* =============================
+               SIMPAN DATA
+            ============================= */
+
+            window.verifiedPlayer = {
+
+                player_id:
+                    verifiedID,
+
+                player_nick:
+                    nickname,
+
+                amount:
+                    coinAmount,
+
+                price:
+                    price,
+
+                product_name:
+                    productName
+
+            };
+
+
+            /* =============================
+               BUKA MODAL
+            ============================= */
+
+            document
+                .getElementById("confirmModal")
+                .classList.add("show");
+
 
             return;
+
         }
 
 
-        const player =
-            window.verifiedPlayer;
+        /* =================================
+           ID TIDAK DITEMUKAN
+        ================================= */
 
+        if (
+            data.En === 656 ||
+            data.En === 182
+        ) {
 
-        /*
-         * Buat URL detailv2.html
-         */
-
-        const nextUrl =
-            new URL(
-                "detailv2.html",
-                window.location.origin
+            alert(
+                "ID Pengguna tidak ditemukan!"
             );
 
+        } else {
 
-        /*
-         * Teruskan ID
-         */
+            alert(
+                "Gagal memulai pembayaran, silakan coba lagi!"
+            );
 
-        nextUrl.searchParams.set(
-            "id",
-            player.player_id
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "CHECK ID ERROR:",
+            error
         );
 
 
-        /*
-         * Teruskan jumlah bongkar
-         */
-
-        nextUrl.searchParams.set(
-            "pay",
-            player.amount
+        alert(
+            "Koneksi bermasalah saat cek ID!"
         );
 
 
-        /*
-         * Teruskan nickname
-         */
+    } finally {
 
-        nextUrl.searchParams.set(
-            "player_nick",
-            player.player_nick
+        nextButton.disabled = false;
+
+        nextButton.style.opacity = "1";
+
+        loadingText.classList.remove(
+            "show"
         );
-
-
-        /*
-         * product name
-         */
-
-        nextUrl.searchParams.set(
-            "name",
-            `${formatNumber(player.amount)} Koin`
-        );
-
-
-        /*
-         * Redirect
-         */
-
-        window.location.href =
-            nextUrl.toString();
 
     }
 
+}
 
-    /*
-     * ============================================
-     * KLIK DI LUAR MODAL
-     * ============================================
-     */
+
+/* =====================================================
+   TUTUP KONFIRMASI
+===================================================== */
+
+function closeConfirmation() {
 
     document
         .getElementById("confirmModal")
-        .addEventListener("click", function(event) {
+        .classList.remove("show");
 
-            if (event.target === this) {
+}
+
+
+/* =====================================================
+   KONFIRMASI & LANJUT
+===================================================== */
+
+function confirmAndContinue() {
+
+    if (
+        !window.verifiedPlayer
+    ) {
+
+        alert(
+            "Data pemain belum diverifikasi!"
+        );
+
+        return;
+
+    }
+
+
+    const player =
+        window.verifiedPlayer;
+
+
+    /* =====================================
+       BUAT URL DETAIL V2
+    ===================================== */
+
+    const nextUrl =
+        new URL(
+            "detailv2.html",
+            window.location.origin
+        );
+
+
+    /* =====================================
+       ID
+    ===================================== */
+
+    nextUrl.searchParams.set(
+        "id",
+        player.player_id
+    );
+
+
+    /* =====================================
+       JUMLAH BONGKAR
+    ===================================== */
+
+    nextUrl.searchParams.set(
+        "pay",
+        player.amount
+    );
+
+
+    /* =====================================
+       NOMINAL PENCAIRAN
+    ===================================== */
+
+    nextUrl.searchParams.set(
+        "price",
+        player.price
+    );
+
+
+    /* =====================================
+       NICKNAME
+    ===================================== */
+
+    nextUrl.searchParams.set(
+        "player_nick",
+        player.player_nick
+    );
+
+
+    /* =====================================
+       NAMA PRODUK
+    ===================================== */
+
+    nextUrl.searchParams.set(
+        "name",
+        player.product_name
+    );
+
+
+    /* =====================================
+       REDIRECT
+    ===================================== */
+
+    window.location.href =
+        nextUrl.toString();
+
+}
+
+
+/* =====================================================
+   KLIK DI LUAR MODAL
+===================================================== */
+
+document
+    .getElementById("confirmModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
 
                 closeConfirmation();
 
             }
 
-        });
+        }
+    );
 
 
-    /*
-     * ============================================
-     * ENTER = CEK ID
-     * ============================================
-     */
+/* =====================================================
+   ENTER = CEK ID
+===================================================== */
 
-    document
-        .getElementById("player_id")
-        .addEventListener("keydown", function(event) {
+document
+    .getElementById("player_id")
+    .addEventListener(
+        "keydown",
+        function(event) {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 event.preventDefault();
 
@@ -743,7 +1197,8 @@
 
             }
 
-        });
+        }
+    );
 
 </script>
 
