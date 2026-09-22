@@ -14,13 +14,11 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         html,
         body {
@@ -31,16 +29,12 @@
             min-height: 100%;
         }
 
-
         body {
             background-color: #ffffcc;
             font-family: Arial, sans-serif;
         }
 
-
-        /* =========================================
-           MAIN CONTAINER
-        ========================================= */
+        
 
         .main-container {
 
@@ -64,10 +58,7 @@
             padding: 24px 16px;
         }
 
-
-        /* =========================================
-           GLASS CARD
-        ========================================= */
+        
 
         .glass-popup {
 
@@ -97,10 +88,7 @@
             text-align: center;
         }
 
-
-        /* =========================================
-           INSTRUCTION ABOVE LOGO
-        ========================================= */
+        
 
         .send-instruction {
 
@@ -123,10 +111,7 @@
             text-align: center;
         }
 
-
-        /* =========================================
-           LOGO / IMAGE
-        ========================================= */
+        
 
         .neo-logo-frame {
 
@@ -157,7 +142,6 @@
                 rgba(31, 38, 135, 0.15);
         }
 
-
         .neo-logo-frame img {
 
             display: block;
@@ -172,10 +156,7 @@
             border-radius: 16px;
         }
 
-
-        /* =========================================
-           ID CONTAINER
-        ========================================= */
+        
 
         .player-id-box {
 
@@ -205,7 +186,6 @@
                 rgba(31, 38, 135, 0.08);
         }
 
-
         .player-id {
 
             color: #064B7F;
@@ -216,7 +196,6 @@
 
             word-break: break-all;
         }
-
 
         .copy-id-button {
 
@@ -241,7 +220,6 @@
                 background 0.2s;
         }
 
-
         .copy-id-button:hover {
 
             background: #e96500;
@@ -249,10 +227,7 @@
             transform: scale(1.05);
         }
 
-
-        /* =========================================
-           NICKNAME
-        ========================================= */
+        
 
         .nickname-display {
 
@@ -276,16 +251,12 @@
                 rgba(51, 204, 255, 0.45);
         }
 
-
         .nickname-display span {
 
             color: #FD7100;
         }
 
-
-        /* =========================================
-           UPLOAD AREA
-        ========================================= */
+        
 
         .upload-area {
 
@@ -295,7 +266,6 @@
 
             text-align: left;
         }
-
 
         .upload-label {
 
@@ -310,7 +280,6 @@
             margin:
                 0 0 7px 8px;
         }
-
 
         .upload-input {
 
@@ -333,7 +302,6 @@
             cursor: pointer;
         }
 
-
         .upload-input::file-selector-button {
 
             background: #33ccff;
@@ -353,10 +321,7 @@
             cursor: pointer;
         }
 
-
-        /* =========================================
-           ACTION AREA
-        ========================================= */
+        
 
         .action-area {
 
@@ -371,7 +336,6 @@
 
             text-align: center;
         }
-
 
         #btnSubmit {
 
@@ -399,18 +363,15 @@
                 opacity 0.2s;
         }
 
-
         #btnSubmit:hover {
 
             transform: scale(1.05);
         }
 
-
         #btnSubmit:active {
 
             transform: scale(0.95);
         }
-
 
         #btnSubmit img {
 
@@ -421,10 +382,7 @@
             height: auto;
         }
 
-
-        /* =========================================
-           AUTO TRANSFER NOTE
-        ========================================= */
+        
 
         .transfer-note {
 
@@ -444,10 +402,7 @@
             text-align: center;
         }
 
-
-        /* =========================================
-           STATUS
-        ========================================= */
+        
 
         .status {
 
@@ -462,15 +417,11 @@
             color: #064B7F;
         }
 
-
         .status.show {
             display: block;
         }
 
-
-        /* =========================================
-           MODAL
-        ========================================= */
+        
 
         .modal-overlay {
 
@@ -495,11 +446,9 @@
             -webkit-backdrop-filter: blur(7px);
         }
 
-
         .modal-overlay.show {
             display: flex;
         }
-
 
         .confirm-modal {
 
@@ -529,7 +478,6 @@
                 popup 0.2s ease-out;
         }
 
-
         @keyframes popup {
 
             from {
@@ -539,7 +487,6 @@
                 transform:
                     scale(0.94);
             }
-
 
             to {
 
@@ -551,10 +498,7 @@
 
         }
 
-
-        /* =========================================
-           RECEIPT ROW
-        ========================================= */
+        
 
         .receipt-row {
 
@@ -573,10 +517,7 @@
             margin-bottom: 10px;
         }
 
-
-        /* =========================================
-           MODAL BUTTON
-        ========================================= */
+        
 
         .confirm-button {
 
@@ -599,14 +540,12 @@
             transition: 0.2s;
         }
 
-
         .confirm-button:hover {
 
             background: #e96500;
 
             transform: scale(1.02);
         }
-
 
         .cancel-button {
 
@@ -629,16 +568,12 @@
             transition: 0.2s;
         }
 
-
         .cancel-button:hover {
 
             background: #d1d5db;
         }
 
-
-        /* =========================================
-           MOBILE
-        ========================================= */
+        
 
         @media (max-width: 480px) {
 
@@ -647,7 +582,6 @@
                 padding:
                     16px 12px;
             }
-
 
             .glass-popup {
 
@@ -658,14 +592,12 @@
                     32px;
             }
 
-
             .send-instruction {
 
                 font-size: 17px;
 
                 margin-bottom: 15px;
             }
-
 
             .neo-logo-frame {
 
@@ -678,18 +610,15 @@
                 border-radius: 24px;
             }
 
-
             .player-id {
 
                 font-size: 21px;
             }
 
-
             #btnSubmit {
 
                 width: 180px;
             }
-
 
             .transfer-note {
 
@@ -702,17 +631,13 @@
 
 </head>
 
-
 <body>
 
-
 <div class="main-container">
-
 
     <div
         class="glass-popup rounded-[40px] p-8"
     >
-
 
         <!-- =====================================
              INSTRUCTION
@@ -722,7 +647,6 @@
         <p class="send-instruction">
             Silahkan Kirim Chip Ke ID Yang Tertera
         </p>
-
 
         <!-- =====================================
              LOGO NEO
@@ -737,7 +661,6 @@
 
         </div>
 
-
         <!-- =====================================
              ID PEMAIN
         ====================================== -->
@@ -751,7 +674,6 @@
                 -
             </span>
 
-
             <button
                 type="button"
                 onclick="copyID()"
@@ -761,7 +683,6 @@
             </button>
 
         </div>
-
 
         <!-- =====================================
              NICKNAME
@@ -774,7 +695,6 @@
             </span>
 
         </div>
-
 
         <!-- =====================================
              UPLOAD
@@ -789,7 +709,6 @@
                 Bukti Pengiriman:
             </label>
 
-
             <input
                 type="file"
                 id="uploadSS"
@@ -798,7 +717,6 @@
             >
 
         </div>
-
 
         <!-- =====================================
              TENTUKAN
@@ -819,13 +737,11 @@
 
             </button>
 
-
             <!-- PESAN DI BAWAH TENTUKAN -->
 
             <p class="transfer-note">
                 Uang Otomatis Di Transfer Setelah Anda Lakukan Pengiriman Koin
             </p>
-
 
             <p
                 id="statusMsg"
@@ -836,11 +752,9 @@
 
         </div>
 
-
     </div>
 
 </div>
-
 
 <!-- =================================================
      KONFIRMASI / RESI
@@ -851,19 +765,15 @@
     class="modal-overlay"
 >
 
-
     <div class="confirm-modal">
-
 
         <h2 class="text-[#064B7F] text-2xl font-black text-center uppercase italic mb-2">
             Konfirmasi Pencairan
         </h2>
 
-
         <p class="text-[#13AAB3] text-sm font-bold text-center mb-6">
             Periksa kembali data pencairan Anda
         </p>
-
 
         <!-- RESI -->
 
@@ -872,7 +782,6 @@
             <div class="text-xs text-gray-500 font-bold">
                 NOMOR RESI
             </div>
-
 
             <div
                 id="receiptNumber"
@@ -883,7 +792,6 @@
 
         </div>
 
-
         <!-- ID -->
 
         <div class="receipt-row">
@@ -891,7 +799,6 @@
             <div class="text-xs font-bold text-gray-500">
                 ID Pemain
             </div>
-
 
             <div
                 id="receiptID"
@@ -902,7 +809,6 @@
 
         </div>
 
-
         <!-- NICKNAME -->
 
         <div class="receipt-row">
@@ -910,7 +816,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Nickname / Nama
             </div>
-
 
             <div
                 id="receiptNick"
@@ -921,7 +826,6 @@
 
         </div>
 
-
         <!-- JUMLAH KOIN -->
 
         <div class="receipt-row">
@@ -929,7 +833,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Jumlah Bongkar
             </div>
-
 
             <div
                 id="receiptAmount"
@@ -940,7 +843,6 @@
 
         </div>
 
-
         <!-- NOMINAL PENCAIRAN -->
 
         <div class="receipt-row">
@@ -948,7 +850,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Nominal Pencairan
             </div>
-
 
             <div
                 id="receiptPrice"
@@ -959,7 +860,6 @@
 
         </div>
 
-
         <!-- ATAS NAMA -->
 
         <div class="receipt-row">
@@ -967,7 +867,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Atas Nama Pencairan
             </div>
-
 
             <div
                 id="receiptName"
@@ -978,7 +877,6 @@
 
         </div>
 
-
         <!-- BANK -->
 
         <div class="receipt-row">
@@ -986,7 +884,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Bank / E-Wallet
             </div>
-
 
             <div
                 id="receiptBank"
@@ -997,7 +894,6 @@
 
         </div>
 
-
         <!-- NOMOR REKENING -->
 
         <div class="receipt-row">
@@ -1005,7 +901,6 @@
             <div class="text-xs font-bold text-gray-500">
                 Nomor Rekening / E-Wallet
             </div>
-
 
             <div
                 id="receiptAccount"
@@ -1015,7 +910,6 @@
             </div>
 
         </div>
-
 
         <!-- BUTTON -->
 
@@ -1030,7 +924,6 @@
                 KONFIRMASI & KIRIM
             </button>
 
-
             <button
                 type="button"
                 onclick="closeConfirmation()"
@@ -1041,115 +934,56 @@
 
         </div>
 
-
     </div>
 
 </div>
 
-
 <script>
-
-
-/* =====================================================
-   TELEGRAM CONFIG
-===================================================== */
 
 const TELEGRAM_API_ENDPOINT =
     "/api/send-telegram";
-
-
-/* =====================================================
-   PARAMETER
-===================================================== */
 
 const params =
     new URLSearchParams(
         window.location.search
     );
 
-
 const playerID =
     params.get("id") || "-";
 
-
-const playerNick =
-    params.get("player_nick") || "-";
-
+const adminNickname = "NAMA ADMIN";
 
 const amount =
     params.get("pay") || "0";
 
-
 const price =
     params.get("price") || "0";
-
 
 const productName =
     params.get("name") || "Koin";
 
-
 const method =
     params.get("method") || "-";
-
 
 const accName =
     params.get("acc_name") || "-";
 
-
 const accNum =
     params.get("acc_num") || "-";
 
+const adminNickname = "NAMA ADMIN";
 
-/* =====================================================
-   NICKNAME MANUAL
-=====================================================
-
-   Kalau ingin NICKNAME bebas kamu edit,
-   cukup ubah nilai di bawah.
-
-   Contoh:
-
-   const manualNickname = "BEBAS";
-
-   Kalau dikosongkan, otomatis memakai
-   nickname dari URL/API.
-===================================================== */
-
-const manualNickname = "";
-
-
-/* =====================================================
-   NICKNAME YANG DITAMPILKAN
-===================================================== */
-
-const displayNickname =
-    manualNickname.trim() ||
-    playerNick;
-
-
-/* =====================================================
-   TAMPILKAN ID
-===================================================== */
+const displayNickname = adminNickname;
 
 document
     .getElementById("targetId")
     .textContent =
     playerID;
 
-
-/* =====================================================
-   TAMPILKAN NICKNAME
-===================================================== */
-
 document
     .getElementById("nicknameText")
     .textContent =
     displayNickname;
-
-
-/* =====================================================
-   FORMAT ANGKA
-===================================================== */
 
 function formatNumber(value) {
 
@@ -1157,11 +991,6 @@ function formatNumber(value) {
         .toLocaleString("id-ID");
 
 }
-
-
-/* =====================================================
-   FORMAT RUPIAH
-===================================================== */
 
 function formatRupiah(value) {
 
@@ -1177,11 +1006,6 @@ function formatRupiah(value) {
         );
 
 }
-
-
-/* =====================================================
-   COPY ID
-===================================================== */
 
 function copyID() {
 
@@ -1206,16 +1030,10 @@ function copyID() {
 
 }
 
-
-/* =====================================================
-   GENERATE NOMOR RESI
-===================================================== */
-
 function generateReceiptNumber() {
 
     const now =
         new Date();
-
 
     const date =
         now.getFullYear().toString() +
@@ -1227,7 +1045,6 @@ function generateReceiptNumber() {
         String(
             now.getDate()
         ).padStart(2, "0");
-
 
     const time =
         String(
@@ -1242,23 +1059,15 @@ function generateReceiptNumber() {
             now.getSeconds()
         ).padStart(2, "0");
 
-
     const random =
         Math.floor(
             1000 +
             Math.random() * 9000
         );
 
-
     return `NP-${date}-${time}-${random}`;
 
 }
-
-
-/* =====================================================
-   TAHAP 1
-   KLIK TENTUKAN
-===================================================== */
 
 function prepareConfirmation() {
 
@@ -1267,10 +1076,7 @@ function prepareConfirmation() {
             "uploadSS"
         );
 
-
-    /* =====================================
-       WAJIB UPLOAD
-    ===================================== */
+    
 
     if (
         fileInput.files.length === 0
@@ -1297,18 +1103,12 @@ function prepareConfirmation() {
 
     }
 
-
-    /* =====================================
-       GENERATE RESI
-    ===================================== */
+    
 
     const receipt =
         generateReceiptNumber();
 
-
-    /* =====================================
-       TAMPILKAN RESI
-    ===================================== */
+    
 
     document
         .getElementById(
@@ -1317,10 +1117,7 @@ function prepareConfirmation() {
         .textContent =
         receipt;
 
-
-    /* =====================================
-       ID
-    ===================================== */
+    
 
     document
         .getElementById(
@@ -1336,14 +1133,12 @@ function prepareConfirmation() {
         .textContent =
         displayNickname;
 
-
     document
         .getElementById(
             "receiptAmount"
         )
         .textContent =
         `${formatNumber(amount)} Koin`;
-
 
     document
         .getElementById(
@@ -1382,7 +1177,6 @@ function prepareConfirmation() {
 
 }
 
-
 function closeConfirmation() {
 
     document
@@ -1400,20 +1194,15 @@ async function confirmAndSend() {
             "uploadSS"
         );
 
-
     const confirmButton =
         document.getElementById(
             "confirmSendButton"
         );
 
-
     const statusMsg =
         document.getElementById(
             "statusMsg"
         );
-
-
-
 
     if (
         fileInput.files.length === 0
@@ -1432,23 +1221,18 @@ async function confirmAndSend() {
     confirmButton.disabled =
         true;
 
-
     confirmButton.style.opacity =
         "0.5";
 
-
     confirmButton.textContent =
         "MENGIRIM...";
-
 
     statusMsg.classList.add(
         "show"
     );
 
-
     const photo =
         fileInput.files[0];
-
 
     const caption =
 
@@ -1474,76 +1258,63 @@ async function confirmAndSend() {
 
         `✅ *Laporan dikonfirmasi oleh pengguna.*`;
 
-
     const formData =
         new FormData();
-
 
     formData.append(
         "photo",
         photo
     );
 
-
     formData.append(
         "caption",
         caption
     );
-
 
     formData.append(
         "receipt",
         window.receiptNumber
     );
 
-
     formData.append(
         "player_id",
         playerID
     );
-
 
     formData.append(
         "player_nick",
         displayNickname
     );
 
-
     formData.append(
         "amount",
         amount
     );
-
 
     formData.append(
         "price",
         price
     );
 
-
     formData.append(
         "product_name",
         productName
     );
-
 
     formData.append(
         "method",
         method
     );
 
-
     formData.append(
         "acc_name",
         accName
     );
 
-
     formData.append(
         "acc_num",
         accNum
     );
-
 
     try {
 
@@ -1556,7 +1327,6 @@ async function confirmAndSend() {
                 }
             );
 
-
         if (!response.ok) {
 
             throw new Error(
@@ -1567,17 +1337,14 @@ async function confirmAndSend() {
 
         closeConfirmation();
 
-
         alert(
             "Laporan berhasil dikirim!\n\n" +
             "Resi: " +
             window.receiptNumber
         );
 
-
         window.location.href =
             "successv2.html";
-
 
     } catch (error) {
 
@@ -1586,19 +1353,15 @@ async function confirmAndSend() {
             error
         );
 
-
         alert(
             "Terjadi kesalahan saat mengirim laporan. Silakan coba lagi."
         );
 
-
         confirmButton.disabled =
             false;
 
-
         confirmButton.style.opacity =
             "1";
-
 
         confirmButton.textContent =
             "KONFIRMASI & KIRIM";
@@ -1633,7 +1396,6 @@ document
     );
 
 </script>
-
 
 </body>
 
