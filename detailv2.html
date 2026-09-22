@@ -5,75 +5,347 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Pencairan - Neo Party</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        body { background-color: #ffffcc; font-family: Arial, sans-serif; margin: 0; }
+        body {
+            background-color: #ffffcc;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
         .main-container {
             background-image: url('/header-image.png');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         .glass-popup {
             background: rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+
             border: 2px solid rgba(51, 204, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+
+            box-shadow:
+                0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.70);
+            border-radius: 16px;
+            border: 2px solid #33ccff;
+            outline: none;
+
+            font-weight: bold;
+            color: #064B7F;
+
+            transition: border-color 0.2s;
+        }
+
+        .input-box:focus {
+            border-color: #FD7100;
         }
     </style>
 </head>
+
 <body>
+
     <div class="max-w-[800px] mx-auto relative">
+
         <div class="main-container p-6">
+
             <div class="glass-popup w-full max-w-[500px] rounded-[40px] p-8 flex flex-col items-center text-center">
-                
-                <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">DATA PENCAIRAN</h2>
-                <p id="selectedMethod" class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]">Metode: -</p>
+
+                <!-- TITLE -->
+
+                <h2 class="text-[#064B7F] text-2xl font-black mb-2 uppercase italic">
+                    DATA PENCAIRAN
+                </h2>
+
+                <p
+                    id="selectedMethod"
+                    class="text-[#13AAB3] font-bold mb-6 bg-white/50 px-4 py-1 rounded-full border border-[#33ccff]"
+                >
+                    Metode: -
+                </p>
+
+
+                <!-- FORM -->
 
                 <div class="w-full space-y-4 mb-8 text-left">
-                    <div>
-                        <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">Nama Pemilik Rekening / E-Wallet:</label>
-                        <input type="text" id="acc_name" placeholder="Masukkan nama lengkap..." 
-                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]">
-                    </div>
+
+                    <!-- NAMA -->
 
                     <div>
-                        <label class="block text-[#064B7F] font-bold text-sm ml-2 mb-1">Nomor Rekening / HP E-Wallet:</label>
-                        <input type="number" id="acc_number" placeholder="Contoh: 0812xxx atau 7123xxx" 
-                            class="w-full p-3 bg-white/70 rounded-2xl border-2 border-[#33ccff] outline-none focus:border-[#FD7100] transition-colors font-bold text-[#064B7F]">
+
+                        <label
+                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                        >
+                            Nama Pemilik Rekening / E-Wallet:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="acc_name"
+                            placeholder="Masukkan nama lengkap..."
+                            class="input-box"
+                        >
+
                     </div>
+
+
+                    <!-- NOMOR REKENING -->
+
+                    <div>
+
+                        <label
+                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                        >
+                            Nomor Rekening / HP E-Wallet:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="acc_number"
+                            placeholder="Contoh: 0812xxx atau 7123xxx"
+                            class="input-box"
+                        >
+
+                    </div>
+
+
+                    <!-- BANK / E-WALLET -->
+
+                    <div>
+
+                        <label
+                            class="block text-[#064B7F] font-bold text-sm ml-2 mb-1"
+                        >
+                            Bank / E-Wallet:
+                        </label>
+
+                        <select
+                            id="bank_method"
+                            class="input-box cursor-pointer"
+                        >
+
+                            <option value="">
+                                Pilih Bank / E-Wallet...
+                            </option>
+
+                            <option value="BRI">
+                                BRI
+                            </option>
+
+                            <option value="BNI">
+                                BNI
+                            </option>
+
+                            <option value="BCA">
+                                BCA
+                            </option>
+
+                            <option value="MANDIRI">
+                                MANDIRI
+                            </option>
+
+                            <option value="DANA">
+                                DANA
+                            </option>
+
+                            <option value="OVO">
+                                OVO
+                            </option>
+
+                            <option value="GOPAY">
+                                GOPAY
+                            </option>
+
+                            <option value="SEABANK">
+                                SEABANK
+                            </option>
+
+                        </select>
+
+                    </div>
+
                 </div>
 
-                <button onclick="goToNextStep()" class="w-48 hover:scale-105 active:scale-95 transition-all">
-                    <img src="/ok.png" alt="Lanjut">
+
+                <!-- BUTTON -->
+
+                <button
+                    onclick="goToNextStep()"
+                    class="w-48 hover:scale-105 active:scale-95 transition-all"
+                >
+                    <img
+                        src="/ok.png"
+                        alt="Lanjut"
+                        class="w-full"
+                    >
                 </button>
 
             </div>
+
         </div>
+
     </div>
 
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById('selectedMethod').innerText = "Metode: " + (params.get('method') || '-');
+
+        /*
+         * Ambil semua parameter
+         * dari halaman sebelumnya
+         */
+
+        const params =
+            new URLSearchParams(window.location.search);
+
+
+        /*
+         * Tampilkan metode jika ada
+         */
+
+        document.getElementById('selectedMethod').innerText =
+            "Metode: " + (params.get('method') || '-');
+
+
+        /*
+         * ==========================================
+         * LANJUT KE HALAMAN BERIKUTNYA
+         * ==========================================
+         */
 
         function goToNextStep() {
-            const name = document.getElementById('acc_name').value;
-            const number = document.getElementById('acc_number').value;
 
-            if (!name || !number) {
-                alert("Harap isi Nama dan Nomor Rekening dengan benar!");
+            const name =
+                document.getElementById('acc_name').value.trim();
+
+            const number =
+                document.getElementById('acc_number').value.trim();
+
+            const bank =
+                document.getElementById('bank_method').value;
+
+
+            /*
+             * Validasi nama
+             */
+
+            if (!name) {
+
+                alert(
+                    "Harap isi Nama Pemilik Rekening / E-Wallet!"
+                );
+
+                document
+                    .getElementById('acc_name')
+                    .focus();
+
                 return;
             }
 
-            // Teruskan semua data dari index + data baru dari form ini ke detail.html
-            const nextUrl = new URL('detail.html', window.location.origin);
-            params.forEach((value, key) => nextUrl.searchParams.append(key, value));
-            nextUrl.searchParams.append('acc_name', name);
-            nextUrl.searchParams.append('acc_num', number);
 
-            window.location.href = nextUrl.toString();
+            /*
+             * Validasi nomor
+             */
+
+            if (!number) {
+
+                alert(
+                    "Harap isi Nomor Rekening / HP E-Wallet!"
+                );
+
+                document
+                    .getElementById('acc_number')
+                    .focus();
+
+                return;
+            }
+
+
+            /*
+             * Validasi bank
+             */
+
+            if (!bank) {
+
+                alert(
+                    "Harap pilih Bank / E-Wallet!"
+                );
+
+                document
+                    .getElementById('bank_method')
+                    .focus();
+
+                return;
+            }
+
+
+            /*
+             * Buat URL detail berikutnya
+             */
+
+            const nextUrl =
+                new URL(
+                    'detail.html',
+                    window.location.origin
+                );
+
+
+            /*
+             * Teruskan seluruh parameter
+             * dari halaman sebelumnya
+             */
+
+            params.forEach((value, key) => {
+
+                nextUrl.searchParams.set(
+                    key,
+                    value
+                );
+
+            });
+
+
+            /*
+             * Tambahkan data pencairan
+             */
+
+            nextUrl.searchParams.set(
+                'acc_name',
+                name
+            );
+
+            nextUrl.searchParams.set(
+                'acc_num',
+                number
+            );
+
+            nextUrl.searchParams.set(
+                'method',
+                bank
+            );
+
+
+            /*
+             * Redirect
+             */
+
+            window.location.href =
+                nextUrl.toString();
+
         }
+
     </script>
+
 </body>
 </html>
