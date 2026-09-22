@@ -701,7 +701,227 @@
             <input
                 type="file"
                 id="uploadSS"
-                accept="image
+                accept="image/*"
+                class="upload-input"
+            >
+
+        </div>
+
+        
+
+        <div class="action-area">
+
+            <button
+                id="btnSubmit"
+                type="button"
+                onclick="prepareConfirmation()"
+            >
+
+                <img
+                    src="/ok.png"
+                    alt="Tentukan"
+                >
+
+            </button>
+
+            <!-- PESAN DI BAWAH TENTUKAN -->
+
+            <p class="transfer-note">
+                Uang Otomatis Di Transfer Setelah Anda Lakukan Pengiriman Koin
+            </p>
+
+            <p
+                id="statusMsg"
+                class="status"
+            >
+                Mengirim laporan...
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    id="confirmModal"
+    class="modal-overlay"
+>
+
+    <div class="confirm-modal">
+
+        <h2 class="text-[#064B7F] text-2xl font-black text-center uppercase italic mb-2">
+            Konfirmasi Pencairan
+        </h2>
+
+        <p class="text-[#13AAB3] text-sm font-bold text-center mb-6">
+            Periksa kembali data pencairan Anda
+        </p>
+
+        <!-- RESI -->
+
+        <div class="mb-5 text-center">
+
+            <div class="text-xs text-gray-500 font-bold">
+                NOMOR RESI
+            </div>
+
+            <div
+                id="receiptNumber"
+                class="text-xl font-black text-[#FD7100] tracking-wider"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- ID -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                ID Pemain
+            </div>
+
+            <div
+                id="receiptID"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- NICKNAME -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Nickname / Nama
+            </div>
+
+            <div
+                id="receiptNick"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- JUMLAH KOIN -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Jumlah Bongkar
+            </div>
+
+            <div
+                id="receiptAmount"
+                class="text-lg font-black text-[#FD7100]"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- NOMINAL PENCAIRAN -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Nominal Pencairan
+            </div>
+
+            <div
+                id="receiptPrice"
+                class="text-lg font-black text-[#FD7100]"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- ATAS NAMA -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Atas Nama Pencairan
+            </div>
+
+            <div
+                id="receiptName"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- BANK -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Bank / E-Wallet
+            </div>
+
+            <div
+                id="receiptBank"
+                class="text-lg font-black text-[#064B7F]"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- NOMOR REKENING -->
+
+        <div class="receipt-row">
+
+            <div class="text-xs font-bold text-gray-500">
+                Nomor Rekening / E-Wallet
+            </div>
+
+            <div
+                id="receiptAccount"
+                class="text-lg font-black text-[#064B7F] break-all"
+            >
+                -
+            </div>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="space-y-3 mt-6">
+
+            <button
+                id="confirmSendButton"
+                type="button"
+                onclick="confirmAndSend()"
+                class="confirm-button"
+            >
+                KONFIRMASI & KIRIM
+            </button>
+
+            <button
+                type="button"
+                onclick="closeConfirmation()"
+                class="cancel-button"
+            >
+                KEMBALI
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
 
 const TELEGRAM_API_ENDPOINT =
     "/api/send-telegram";
@@ -728,8 +948,6 @@ const accName =
 
 const accNum =
     params.get("acc_num") || "-";
-
-const displayNickname = adminNickname;
 
 document
     .getElementById("targetId")
@@ -1153,7 +1371,7 @@ document
 
 const playerID = "111";
 const adminNickname = "WOII";
-
+const displayNickname = adminNickname;
 </script>
 
 </body>
